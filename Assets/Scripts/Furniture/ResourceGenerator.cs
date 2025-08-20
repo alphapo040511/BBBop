@@ -4,24 +4,24 @@ using UnityEngine;
 
 public class ResourceGenerator : MonoBehaviour
 {
-    private BuildingData buildingData;
+    private FurnitureData furnitureData;
 
     private float timer = 0;
 
-    public void Initialized(BuildingData buildingData)
+    public void Initialized(FurnitureData buildingData)
     {
-        this.buildingData = buildingData;
+        this.furnitureData = buildingData;
     }
 
     private void Update()
     {
         timer += Time.deltaTime;
-        if(timer >= buildingData.intervalTime)
+        if(timer >= furnitureData.intervalTime)
         {
             timer = 0;
 
             // °ñµå »ý¼º ·ÎÁ÷
-            Debug.Log($"{buildingData.goldAmount}G È¹µæ");
+            Debug.Log($"{furnitureData.goldAmount}G È¹µæ");
         }
     }
 }

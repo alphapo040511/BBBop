@@ -18,7 +18,7 @@ public class GridManager : MonoBehaviour
     public Color gridColor = Color.white;
 
     // 격자 데이터 저장
-    private PlacedItem[,] buildingsGrid;
+    private PlacedFurniture[,] furnituresGrid;
 
     void Start()
     {
@@ -28,16 +28,16 @@ public class GridManager : MonoBehaviour
 
     void InitializeGrid()
     {
-        buildingsGrid = new PlacedItem[gridWidth, gridHeight];
+        furnituresGrid = new PlacedFurniture[gridWidth, gridHeight];
     }
 
     void CreateLayers()
     {
         if (buildingsLayer == null)
         {
-            GameObject buildings = new GameObject("BuildingsLayer");
-            buildings.transform.SetParent(transform);
-            buildingsLayer = buildings.transform;
+            GameObject furniture = new GameObject("FurnitureLayer");
+            furniture.transform.SetParent(transform);
+            buildingsLayer = furniture.transform;
         }
     }
 
@@ -81,15 +81,15 @@ public class GridManager : MonoBehaviour
     {
         foreach (Vector2Int pos in GetCoveredTiles(start, size, rotation))
         {
-            if (buildingsGrid[pos.x, pos.y] != null) return true;
+            if (furnituresGrid[pos.x, pos.y] != null) return true;
         }
         return false;
     }
 
     // 건물 배치
-    public bool PlaceBuilding(Vector2Int start, BuildingData item, int rotation)
+    public bool PlaceBuilding(Vector2Int start, FurnitureData item, int rotation)
     {
-        // 설치 해야하는 범위중 그리드를 벗어난 칸이 있는지 확인
+        // 설치 목표 범위가 모두 유효한지 확인
         if (!AreAllTilesValid(start, item.size, rotation)) 
         {
             Debug.Log("범위 밖임");
@@ -104,20 +104,20 @@ public class GridManager : MonoBehaviour
         }
 
         // 건물 생성 및 시작위치, 각도 전달
-        PlacedItem newBuilding = Instantiate(item.buildingPrefab, new Vector3(start.x + 0.5f, 0, start.y + 0.5f), Quaternion.Euler(0, rotation, 0));
-        newBuilding.transform.SetParent(buildingsLayer);
-        newBuilding.Start = start;
-        newBuilding.Rotation = rotation;
+        PlacedFurniture newFurniture = Instantiate(item.buildingPrefab, new Vector3(start.x + 0.5f, 0, start.y + 0.5f), Quaternion.Euler(0, rotation, 0));
+        newFurniture.transform.SetParent(buildingsLayer);
+        newFurniture.Start = start;
+        newFurniture.Rotation = rotation;
 
-        if(item.canProduceResource)             // 해당 건물이 자원 생성이 가능한 경우
+        if(item.canProduceResource)             // 해당 가구가 자원 생성이 가능한 경우
         {
-            newBuilding.AddComponent<ResourceGenerator>().Initialized(item);        // 자원 생성 컴포넌트 부착
+            newFurniture.AddComponent<ResourceGenerator>().Initialized(item);        // 자원 생성 컴포넌트 부착
         }
 
         // 건물 범위 채우기
         foreach (var pos in GetCoveredTiles(start, item.size, rotation))
         {
-            buildingsGrid[pos.x, pos.y] = newBuilding;
+            furnituresGrid[pos.x, pos.y] = newFurniture;
         }
 
 
@@ -125,17 +125,17 @@ public class GridManager : MonoBehaviour
     }
 
     // 건물 제거
-    public bool RemoveBuilding(int x, int z)
+    public bool RemoveFurniture(int x, int z)
     {
         if (!IsValidGridPosition(x, z)) return false;
 
-        if (buildingsGrid[x, z] != null)
+        if (furnituresGrid[x, z] != null)
         {
-            PlacedItem target = buildingsGrid[x, z];
+            PlacedFurniture target = furnituresGrid[x, z];
             foreach (var item in GetCoveredTiles(target.Start, target.Size, target.Rotation))
             {
                 Debug.Log($"{item.x},{item.y}칸 비움");
-                buildingsGrid[item.x, item.y] = null;
+                furnituresGrid[item.x, item.y] = null;
             }
             Debug.Log(target.name + "칸의 아이템 삭제");
             Destroy(target.gameObject);
@@ -144,15 +144,15 @@ public class GridManager : MonoBehaviour
         return false;
     }
 
-    public bool GetBuildingAtPosition(int x, int z, out PlacedItem item)
+    public bool GetBuildingAtPosition(int x, int z, out PlacedFurniture item)
     {
         item = null;       //기본값으로 null 반환
-        if (!IsValidGridPosition(x, z) || buildingsGrid[x, z] == null)      //범위 밖이거나 해당 위치에 건물이 없는 경우 false
+        if (!IsValidGridPosition(x, z) || furnituresGrid[x, z] == null)      // 범위 밖이거나 해당 위치에 건물이 없는 경우 false
         {
             return false;
         }
 
-        item = buildingsGrid[x, z];                //건물이 있는경우 해당 오브젝트 반환
+        item = furnituresGrid[x, z];                // 가구가 있는경우 해당 오브젝트 반환
         return true;
     }
 
@@ -218,7 +218,7 @@ public class GridManager : MonoBehaviour
 
 
         // 설치된 가구 표시
-        if (buildingsGrid == null) return;
+        if (furnituresGrid == null) return;
 
         Gizmos.color = Color.green * 0.5f; // 반투명 초록
 
@@ -226,7 +226,7 @@ public class GridManager : MonoBehaviour
         {
             for (int z = 0; z < gridHeight; z++)
             {
-                PlacedItem item = buildingsGrid[x, z];
+                PlacedFurniture item = furnituresGrid[x, z];
                 if (item == null) continue;
 
                 // 겹치는 타일이 많으므로, 각 타일별로 표시

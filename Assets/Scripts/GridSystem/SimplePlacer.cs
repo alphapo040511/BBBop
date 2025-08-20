@@ -3,7 +3,7 @@ using UnityEngine;
 public class SimplePlacer : MonoBehaviour
 {
     [Header("건축 대상")]
-    public BuildingData currentBuilding;
+    public FurnitureData currentFurniture;
 
     [Header("현재 모드")]
     public PlaceMode currentMode = PlaceMode.Ground;
@@ -122,9 +122,9 @@ public class SimplePlacer : MonoBehaviour
             //    break;
 
             case PlaceMode.Edit:
-                if (currentBuilding != null)
+                if (currentFurniture != null)
                 {
-                    success = gridManager.PlaceBuilding(new Vector2Int(x, z), currentBuilding, GetDirectionAngle(currentRotation));
+                    success = gridManager.PlaceBuilding(new Vector2Int(x, z), currentFurniture, GetDirectionAngle(currentRotation));
 
                     // 컨베이어에 방향 설정
                     if (success)
@@ -135,7 +135,7 @@ public class SimplePlacer : MonoBehaviour
                 break;
 
             case PlaceMode.Remove:
-                success = gridManager.RemoveBuilding(x, z);
+                success = gridManager.RemoveFurniture(x, z);
                 break;
         }
 

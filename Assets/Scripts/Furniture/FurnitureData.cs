@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Building Data", menuName = "Custom Asset/Building Data")]
-public class BuildingData : ScriptableObject
+[CreateAssetMenu(fileName = "New Furniture Data", menuName = "Custom Asset/Furniture Data")]
+public class FurnitureData : ScriptableObject
 {
     [Header("건물 설정")]
-    public PlacedItem buildingPrefab;
+    public PlacedFurniture buildingPrefab;
 
     public Vector2Int size
     {

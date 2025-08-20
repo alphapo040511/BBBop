@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class PlacedItem : MonoBehaviour
+public class PlacedFurniture : MonoBehaviour
 {
     [HideInInspector] public Vector2Int Start;            // ÁÂÇÏ´Ü ±âÁØ
     public int width;                   // Æø
