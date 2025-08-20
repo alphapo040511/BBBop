@@ -21,7 +21,7 @@ public class ResourceGenerator : MonoBehaviour
             timer = 0;
 
             // °ñµå »ý¼º ·ÎÁ÷
-            Debug.Log($"{furnitureData.goldAmount}G È¹µæ");
+            //Debug.Log($"{furnitureData.goldAmount}G È¹µæ");
         }
     }
 }

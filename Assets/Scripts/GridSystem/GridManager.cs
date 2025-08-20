@@ -24,7 +24,9 @@ public class GridManager : MonoBehaviour
     {
         InitializeGrid();
         CreateLayers();
+        LoadFurnitureData();
     }
+
 
     void InitializeGrid()
     {
@@ -89,6 +91,12 @@ public class GridManager : MonoBehaviour
     // 건물 배치
     public bool PlaceBuilding(Vector2Int start, FurnitureData item, int rotation)
     {
+        if(!FurnitureManager.Instance.CanUseFurniture(item.id))
+        {
+            Debug.LogWarning($"DI:{item.id} 가구를 보유하고 있지 않습니다.");
+            return false;
+        }
+
         // 설치 목표 범위가 모두 유효한지 확인
         if (!AreAllTilesValid(start, item.size, rotation)) 
         {
@@ -121,6 +129,10 @@ public class GridManager : MonoBehaviour
             furnituresGrid[pos.x, pos.y] = newFurniture;
         }
 
+        if(FurnitureManager.Instance.PlaceFurniture(new PlacedFurnitureData(newFurniture.id, newFurniture.Start, newFurniture.Rotation)))
+        {
+            FurnitureManager.Instance.UseFurniture(newFurniture.id);
+        }
 
         return true;
     }
@@ -140,6 +152,9 @@ public class GridManager : MonoBehaviour
             }
             Debug.Log(target.name + "칸의 아이템 삭제");
             Destroy(target.gameObject);
+
+            FurnitureManager.Instance.UnplaceFurniture(target.Start);
+
             return true;
         }
         return false;
@@ -157,7 +172,66 @@ public class GridManager : MonoBehaviour
         return true;
     }
 
+    public void GridClear()
+    {
+        for(int x = 0; x < gridWidth; x++)
+        {
+            for(int z = 0; z < gridHeight; z++)
+            {
+                if(furnituresGrid[x, z] != null)
+                {
+                    if(furnituresGrid[x, z].gameObject != null)
+                    {
+                        Destroy(furnituresGrid[x, z].gameObject);
+                    }
 
+                    furnituresGrid[x, z] = null;
+                }
+            }
+        }
+
+        furnituresGrid = new PlacedFurniture[gridWidth, gridHeight];
+    }
+
+    #region LoadData
+    // 설치된 가구 데이터 불러오기
+    public void LoadFurnitureData()
+    {
+        GridClear();
+        FurnitureManager.Instance.PlaceFurnitureClear();
+        SaveManager.Instance.LoadPlacedData(this);
+    }
+
+    // 세이브 기준으로 가구 설치
+    public void InstantiateFormSave(List<PlacedFurnitureData> placedList)
+    {
+        foreach (var data in placedList)
+        {
+            FurnitureData item = FurnitureManager.Instance.furnitureDatas.Find(o => o.id == data.id);
+
+            PlacedFurniture newFurniture = Instantiate(item.buildingPrefab, new Vector3(data.start.x + 0.5f, 0, data.start.y + 0.5f), Quaternion.Euler(0, data.rotation, 0));
+            newFurniture.transform.SetParent(buildingsLayer);
+            newFurniture.Start = data.start;
+            newFurniture.Rotation = data.rotation;
+            newFurniture.id = data.id;
+
+            if (item.canProduceResource)
+            {
+                newFurniture.AddComponent<ResourceGenerator>().Initialized(item);
+            }
+
+            foreach (var pos in GetCoveredTiles(data.start, item.size, data.rotation))
+                    furnituresGrid[pos.x, pos.y] = newFurniture;
+
+            // 매니저에 등록
+            FurnitureManager.Instance.PlaceFurniture(data);
+        }
+
+    }
+
+    #endregion
+
+    #region Utility
     // 시작 지점, 크기, 각도로 차지하는 칸 범위를 반환
     public IEnumerable<Vector2Int> GetCoveredTiles(Vector2Int start, Vector2Int size, int rotation)
     {
@@ -244,4 +318,5 @@ public class GridManager : MonoBehaviour
             }
         }
     }
+    #endregion
 }

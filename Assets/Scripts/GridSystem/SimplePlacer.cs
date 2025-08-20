@@ -105,7 +105,10 @@ public class SimplePlacer : MonoBehaviour
 
                 Vector2Int gridPos = gridManager.WorldToGridPosition(hitPoint);
 
-                PlaceObject(gridPos.x, gridPos.y);
+                if (gridManager.IsValidGridPosition(gridPos.x, gridPos.y))
+                { 
+                    PlaceObject(gridPos.x, gridPos.y);
+                }
             }
         }
     }
@@ -125,12 +128,6 @@ public class SimplePlacer : MonoBehaviour
                 if (currentFurniture != null)
                 {
                     success = gridManager.PlaceBuilding(new Vector2Int(x, z), currentFurniture, GetDirectionAngle(currentRotation));
-
-                    // 컨베이어에 방향 설정
-                    if (success)
-                    {
-                        Debug.Log($"컨베이어 배치: {GetDirectionName(currentRotation)} 방향");
-                    }
                 }
                 break;
 
@@ -149,9 +146,9 @@ public class SimplePlacer : MonoBehaviour
     {
         GUI.Box(new Rect(10, 10, 200, 120), "배치 모드");
         GUI.Label(new Rect(20, 30, 180, 20), "1: 바닥");
-        GUI.Label(new Rect(20, 50, 180, 20), "2: 화살표 컨베이어");
+        GUI.Label(new Rect(20, 50, 180, 20), "2: 가구");
         GUI.Label(new Rect(20, 70, 180, 20), "X: 제거");
-        GUI.Label(new Rect(20, 90, 180, 20), "R: 컨베이어 방향 변경");
+        GUI.Label(new Rect(20, 90, 180, 20), "R: 가구 방향 변경");
 
         GUI.Label(new Rect(10, 140, 200, 20), $"현재 모드: {currentMode}");
 

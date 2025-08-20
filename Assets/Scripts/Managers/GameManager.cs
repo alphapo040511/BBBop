@@ -66,8 +66,10 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         //    Debug.Log("SoundManager 연결 확인");
         //if (UIManager.Instance != null)
         //    Debug.Log("UIManager 연결 확인");
-        //if (SaveManager.Instance != null)
-        //    Debug.Log("SaveManager 연결 확인");
+        if (FurnitureManager.Instance != null)
+            Debug.Log("FurnitureManager 연결 확인");
+        if (SaveManager.Instance != null)
+            Debug.Log("SaveManager 연결 확인");
     }
 
 
