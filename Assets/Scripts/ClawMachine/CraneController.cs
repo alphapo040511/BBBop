@@ -61,7 +61,9 @@ public class CraneController : MonoBehaviour
         Idle,           //대기 상태 - 수동 조작 가능
         Descending,     //내려가는 중 - 물체 감지 대기
         Grabbing,       //집는 중 - 집게 닫기 애니메이션
-        Ascending       //올라가는 중 - 원래 위치로 복귀
+        Ascending,      //올라가는 중 - 원래 위치로 복귀
+        ReturnX,        //X축 원래 위치로 복귀
+        ReturnZ         //Z축 원래 위치로 복귀
     }
 
     private GrabState currentState = GrabState.Idle;
@@ -315,8 +317,41 @@ public class CraneController : MonoBehaviour
                 {
                     cranePosition.y = originalHeight;
                     transform.position = cranePosition;
-                    currentState = GrabState.Idle;
+                    currentState = GrabState.ReturnX;
                     Debug.Log("원래 높이 도달! 완료");
+                }
+                break;
+
+            case GrabState.ReturnX:
+
+                cranePosition.x  = Mathf.MoveTowards(cranePosition.x, initalPosition.x, ascendSpeed * Time.deltaTime);
+                transform.position = cranePosition;
+
+                Debug.Log($"X 이동중 : 현재 {cranePosition.x:F1}, 목표 {initalPosition.x:F1}");
+
+                if (Mathf.Approximately(cranePosition.x, initalPosition.x))
+                {
+                    cranePosition.x = initalPosition.x;
+                    transform.position = cranePosition;
+                    currentState = GrabState.ReturnZ;
+                    Debug.Log("원래 X좌표 도달");
+                }
+                break;
+
+            case GrabState.ReturnZ:
+
+                cranePosition.z += ascendSpeed * Time.deltaTime;
+                transform.position = cranePosition;
+
+                Debug.Log($"Z 이동중 : 현재 {cranePosition.z:F1}, 목표 {initalPosition.z:F1}");
+
+                if (cranePosition.z >= initalPosition.z)
+                {
+                    cranePosition.z = initalPosition.z;
+                    transform.position = cranePosition;
+                    OpenClaw();
+                    currentState = GrabState.Idle;
+                    Debug.Log("원래 Z좌표 도달");
                 }
                 break;
         }
@@ -324,7 +359,7 @@ public class CraneController : MonoBehaviour
 
     void StartAutoGrab()
     {
-        originalHeight = initalPosition.y;          //평상 초기 높이로 돌아감
+        originalHeight = initalPosition.y;          //항상 초기 높이로 돌아감
         currentState = GrabState.Descending;
         clawProgress = 0f;
         SetClawProgress(clawProgress);

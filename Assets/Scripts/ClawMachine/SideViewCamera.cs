@@ -11,13 +11,12 @@ public class SideViewCamera : MonoBehaviour
     public int currentIndex = 0;
 
     private Transform cam;
-    public Button but;
 
     private void Start()
     {
         cam = Camera.main.transform;
         currentIndex = 0;
-        but.onClick.AddListener(NextView);
+
     }
 
     private void Update()
@@ -25,6 +24,10 @@ public class SideViewCamera : MonoBehaviour
         cam.position = Vector3.Lerp(cam.position, viewPoint[currentIndex].position, Time.deltaTime * viewChangeSpeed);
         cam.rotation = Quaternion.Lerp(cam.rotation, viewPoint[currentIndex].rotation, Time.deltaTime * viewChangeSpeed);
 
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            NextView();
+        }
     }
 
     void NextView()
