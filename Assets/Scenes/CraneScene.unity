@@ -1327,52 +1327,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
---- !u!1 &506070418
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 506070420}
-  - component: {fileID: 506070419}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &506070419
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 506070418}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93e7ca706677bb041a7b67718ad90570, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  furnitureData: {fileID: 0}
-  objectCheckCollider: {fileID: 2050484440}
---- !u!4 &506070420
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 506070418}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.1725073, y: 3.1622412, z: 1.0626179}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &615659246
 GameObject:
   m_ObjectHideFlags: 0
@@ -2192,6 +2146,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2050484441}
   - component: {fileID: 2050484440}
+  - component: {fileID: 2050484442}
   m_Layer: 0
   m_Name: ObjectCheckCollider
   m_TagString: Untagged
@@ -2209,7 +2164,7 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -2229,12 +2184,26 @@ Transform:
   m_GameObject: {fileID: 2050484439}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.35, y: 0.7, z: 4.375}
+  m_LocalPosition: {x: -4.35, y: 1, z: 4.375}
   m_LocalScale: {x: 3.8, y: 0.5, z: 3.75}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2050484442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2050484439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93e7ca706677bb041a7b67718ad90570, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  furnitureData: []
+  objectCheckCollider: {fileID: 2050484440}
 --- !u!1 &2132833329
 GameObject:
   m_ObjectHideFlags: 0
@@ -2415,4 +2384,3 @@ SceneRoots:
   - {fileID: 1843793672}
   - {fileID: 1937344349}
   - {fileID: 2050484441}
-  - {fileID: 506070420}

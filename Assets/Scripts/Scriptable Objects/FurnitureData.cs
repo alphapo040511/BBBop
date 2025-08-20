@@ -9,6 +9,15 @@ public class FurnitureData : ScriptableObject
     public string id;
     public PlacedFurniture buildingPrefab;
     public Sprite icon;
+    [Tooltip("µÓ±ﬁ")]public Probability probability;
+
+    public enum Probability         //µÓ±ﬁ
+    {
+        Common,                     //¿œπ›
+        Rare,                       //»Ò±Õ
+        Epic,                       //øµøı
+        Unique                      //¿Ø¥œ≈©
+    }
 
     public Vector2Int size
     {
