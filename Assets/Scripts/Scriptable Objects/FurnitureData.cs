@@ -5,8 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Furniture Data", menuName = "Custom Asset/Furniture Data")]
 public class FurnitureData : ScriptableObject
 {
-    [Header("건물 설정")]
+    [Header("기본 설정")]
+    public string id;
     public PlacedFurniture buildingPrefab;
+    public Sprite icon;
 
     public Vector2Int size
     {

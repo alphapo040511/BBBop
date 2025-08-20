@@ -108,6 +108,7 @@ public class GridManager : MonoBehaviour
         newFurniture.transform.SetParent(buildingsLayer);
         newFurniture.Start = start;
         newFurniture.Rotation = rotation;
+        newFurniture.id = item.id;
 
         if(item.canProduceResource)             // 해당 가구가 자원 생성이 가능한 경우
         {
