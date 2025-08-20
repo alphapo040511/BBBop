@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7884858263949886313}
+  - component: {fileID: -8974139758646253564}
   m_Layer: 0
   m_Name: Toy
   m_TagString: Untagged
@@ -32,6 +33,22 @@ Transform:
   - {fileID: 4745156658301056296}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-8974139758646253564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6587471065472418470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ba4332a27f95aa4f8abb12177090bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Start: {x: 0, y: 0}
+  width: 1
+  depth: 1
+  Rotation: 0
 --- !u!1001 &5066716343686943427
 PrefabInstance:
   m_ObjectHideFlags: 0

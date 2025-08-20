@@ -475,13 +475,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fcbb7327f83dbf408b4433e64701771, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentItem:
-    Item: {fileID: 1807943447598916951, guid: 7d807eea0164a3b44af4dc75db2a920f, type: 3}
-    Start: {x: 0, y: 0}
-    Size: {x: 2, y: 1}
-    Rotation: 0
+  currentBuilding: {fileID: 11400000, guid: 9b82dc565c6962d4c80bdbd386790242, type: 2}
   currentMode: 1
-  conveyorDirection: 0
+  currentRotation: 0
 --- !u!4 &1791546333
 Transform:
   m_ObjectHideFlags: 0

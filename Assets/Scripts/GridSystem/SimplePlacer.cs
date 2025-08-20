@@ -2,15 +2,14 @@ using UnityEngine;
 
 public class SimplePlacer : MonoBehaviour
 {
-    [Header("프리팹")]
-    //public GameObject groundTilePrefab;
-    public PlacedItem currentItem;
+    [Header("건축 대상")]
+    public BuildingData currentBuilding;
 
     [Header("현재 모드")]
     public PlaceMode currentMode = PlaceMode.Ground;
 
     [Header("컨베이어 방향")]
-    public int conveyorDirection = 0; // 0=북, 1=동, 2=남, 3=서
+    public int currentRotation = 0; // 0=북, 1=동, 2=남, 3=서
 
     private GridManager gridManager;
     private Camera playerCamera;
@@ -18,7 +17,7 @@ public class SimplePlacer : MonoBehaviour
     public enum PlaceMode
     {
         Ground,
-        ArrowConveyor,
+        Edit,
         Remove
     }
 
@@ -45,16 +44,15 @@ public class SimplePlacer : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
             currentMode = PlaceMode.Ground;
         else if (Input.GetKeyDown(KeyCode.Alpha2))
-            currentMode = PlaceMode.ArrowConveyor;
+            currentMode = PlaceMode.Edit;
         else if (Input.GetKeyDown(KeyCode.X))
             currentMode = PlaceMode.Remove;
 
         // 컨베이어 방향 변경 (R키)
         if (Input.GetKeyDown(KeyCode.R))
         {
-            conveyorDirection = (conveyorDirection + 1) % 4;
-            currentItem.Rotation = GetDirectionAngle(conveyorDirection);
-            Debug.Log($"컨베이어 방향: {GetDirectionName(conveyorDirection)}");
+            currentRotation = (currentRotation + 1) % 4;
+            Debug.Log($"컨베이어 방향: {GetDirectionName(currentRotation)}");
         }
     }
 
@@ -87,30 +85,7 @@ public class SimplePlacer : MonoBehaviour
 
             if (gridManager.IsValidGridPosition(gridPos.x, gridPos.y))
             {
-                // 해당 위치의 컨베이어 찾기
-                Vector3 worldPos = gridManager.GridToWorldPosition(gridPos.x, gridPos.y);
-                Collider[] colliders = Physics.OverlapSphere(worldPos, 0.5f);
-
-                Debug.Log($"찾은 오브젝트 수: {colliders.Length}");
-
-                foreach (Collider col in colliders)
-                {
-                    Debug.Log($"오브젝트 이름: {col.name}");
-
-                    // Building으로 시작하는 오브젝트 중에서 ConveyorRotator 찾기
-                    if (col.name.StartsWith("Building"))
-                    {
-                        //ConveyorRotator rotator = col.GetComponent<ConveyorRotator>();
-                        //if (rotator != null)
-                        //{
-                        //    Debug.Log("컨베이어 회전 실행!");
-                        //    rotator.RotateToNextDirection();
-                        //    return;
-                        //}
-                    }
-                }
-
-                Debug.Log("해당 위치에 컨베이어가 없습니다.");
+                // 해당 위치에 해당하는 블록이 설치 가능한지 보고 가능하면 회전
             }
         }
     }
@@ -130,12 +105,7 @@ public class SimplePlacer : MonoBehaviour
 
                 Vector2Int gridPos = gridManager.WorldToGridPosition(hitPoint);
 
-                currentItem.Start = gridPos;
-
-                if (gridManager.AreAllTilesValid(currentItem))
-                {
-                    PlaceObject(gridPos.x, gridPos.y);
-                }
+                PlaceObject(gridPos.x, gridPos.y);
             }
         }
     }
@@ -151,15 +121,15 @@ public class SimplePlacer : MonoBehaviour
             //        success = gridManager.PlaceGroundTile(groundTilePrefab, x, z);
             //    break;
 
-            case PlaceMode.ArrowConveyor:
-                if (currentItem != null)
+            case PlaceMode.Edit:
+                if (currentBuilding != null)
                 {
-                    success = gridManager.PlaceBuilding(currentItem, x, z);
+                    success = gridManager.PlaceBuilding(new Vector2Int(x, z), currentBuilding, GetDirectionAngle(currentRotation));
 
                     // 컨베이어에 방향 설정
                     if (success)
                     {
-                        Debug.Log($"컨베이어 배치: {GetDirectionName(conveyorDirection)} 방향");
+                        Debug.Log($"컨베이어 배치: {GetDirectionName(currentRotation)} 방향");
                     }
                 }
                 break;
@@ -185,9 +155,9 @@ public class SimplePlacer : MonoBehaviour
 
         GUI.Label(new Rect(10, 140, 200, 20), $"현재 모드: {currentMode}");
 
-        if (currentMode == PlaceMode.ArrowConveyor)
+        if (currentMode == PlaceMode.Edit)
         {
-            GUI.Label(new Rect(10, 160, 200, 20), $"방향: {GetDirectionName(conveyorDirection)}");
+            GUI.Label(new Rect(10, 160, 200, 20), $"방향: {GetDirectionName(currentRotation)}");
         }
     }
 }

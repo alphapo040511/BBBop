@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using static UnityEditor.PlayerSettings;
+
 
 public class GridManager : MonoBehaviour
 {
@@ -54,9 +54,9 @@ public class GridManager : MonoBehaviour
         return new Vector2Int(x, z);
     }
 
-    public bool AreAllTilesValid(PlacedItem item)
+    public bool AreAllTilesValid(Vector2Int start, Vector2Int size, int rotation)
     {
-        foreach(Vector2Int pos in item.GetCoveredTiles())
+        foreach(Vector2Int pos in GetCoveredTiles(start, size, rotation))
         {
             if (!IsValidGridPosition(pos.x, pos.y))
             {
@@ -75,9 +75,9 @@ public class GridManager : MonoBehaviour
     }
 
     // 범위 안에 건물이 있는지 확인 (있다면 true)
-    public bool HasAnyBuildingInRange(PlacedItem item)
+    public bool HasAnyBuildingInRange(Vector2Int start, Vector2Int size, int rotation)
     {
-        foreach (Vector2Int pos in item.GetCoveredTiles())
+        foreach (Vector2Int pos in GetCoveredTiles(start, size, rotation))
         {
             if (buildingsGrid[pos.x, pos.y] != null) return true;
         }
@@ -85,40 +85,31 @@ public class GridManager : MonoBehaviour
     }
 
     // 건물 배치
-    public bool PlaceBuilding(PlacedItem item, int x, int z)
+    public bool PlaceBuilding(Vector2Int start, BuildingData item, int rotation)
     {
-        PlacedItem itemCopy = new PlacedItem
-        {
-            Start = new Vector2Int(x, z),
-            Size = item.Size,
-            Rotation = item.Rotation,
-            Item = item.Item                            // 여기엔 실제 설치 오브젝트는 나중에 할당
-        };
-
-        if (!AreAllTilesValid(itemCopy)) 
+        if (!AreAllTilesValid(start, item.size, rotation)) 
         {
             Debug.Log("범위 밖임");
             return false; 
         }
 
         // 해당 위치에 이미 건물이 있는지 확인 (있다면 return)
-        if (HasAnyBuildingInRange(itemCopy))
+        if (HasAnyBuildingInRange(start, item.size, rotation))
         {
             Debug.Log("이미 건물 있음");
             return false;
         }
 
-            // 새 건물 생성
-        Vector3 worldPos = GridToWorldPosition(itemCopy.Start.x, itemCopy.Start.y);
-        GameObject newBuilding = Instantiate(itemCopy.Item, worldPos, Quaternion.Euler(0, itemCopy.Rotation, 0));
-        itemCopy.Item = newBuilding;                                                                                // 실제 설치 오브젝트 할당
+
+        PlacedItem newBuilding = Instantiate(item.buildingPrefab, new Vector3(start.x + 0.5f, 0, start.y + 0.5f), Quaternion.Euler(0, rotation, 0));
         newBuilding.transform.SetParent(buildingsLayer);
-        newBuilding.name = $"Building_{itemCopy.Start.x}_{itemCopy.Start.y}";
+        newBuilding.Start = start;
+        newBuilding.Rotation = rotation;
 
         // 건물 범위 채우기
-        foreach (var pos in itemCopy.GetCoveredTiles())
+        foreach (var pos in GetCoveredTiles(start, item.size, rotation))
         {
-            buildingsGrid[pos.x, pos.y] = itemCopy;
+            buildingsGrid[pos.x, pos.y] = newBuilding;
         }
 
 
@@ -132,14 +123,14 @@ public class GridManager : MonoBehaviour
 
         if (buildingsGrid[x, z] != null)
         {
-            GameObject deleteTarget = buildingsGrid[x, z].Item;
-            foreach (var item in buildingsGrid[x, z].GetCoveredTiles())
+            PlacedItem target = buildingsGrid[x, z];
+            foreach (var item in GetCoveredTiles(target.Start, target.Size, target.Rotation))
             {
-                buildingsGrid[item.x, item.y] = null;
                 Debug.Log($"{item.x},{item.y}칸 비움");
+                buildingsGrid[item.x, item.y] = null;
             }
-            Debug.Log(deleteTarget.name + "칸의 아이템 삭제");
-            DestroyImmediate(deleteTarget);
+            Debug.Log(target.name + "칸의 아이템 삭제");
+            Destroy(target.gameObject);
             return true;
         }
         return false;
@@ -194,7 +185,7 @@ public class GridManager : MonoBehaviour
                 if (item == null) continue;
 
                 // 겹치는 타일이 많으므로, 각 타일별로 표시
-                foreach (Vector2Int pos in item.GetCoveredTiles())
+                foreach (Vector2Int pos in GetCoveredTiles(item.Start, item.Size, item.Rotation))
                 {
                     Vector3 tileCenter = new Vector3(
                         pos.x * cellSize + cellSize * 0.5f,
@@ -204,6 +195,41 @@ public class GridManager : MonoBehaviour
 
                     Gizmos.DrawCube(tileCenter, new Vector3(cellSize, 0.1f, cellSize));
                 }
+            }
+        }
+    }
+
+    public IEnumerable<Vector2Int> GetCoveredTiles(Vector2Int start, Vector2Int size, int rotation)
+    {
+        int w = size.x;
+        int h = size.y;
+
+        for (int x = 0; x < w; x++)
+        {
+            for (int y = 0; y < h; y++)
+            {
+                Vector2Int offset = new Vector2Int(x, y);
+
+                // Rotation 처리
+                switch (rotation % 360)
+                {
+                    case 0: // 그대로
+                        break;
+
+                    case 90:
+                        offset = new Vector2Int(y, -x);
+                        break;
+
+                    case 180:
+                        offset = new Vector2Int(-x, -y);
+                        break;
+
+                    case 270:
+                        offset = new Vector2Int(-y, x);
+                        break;
+                }
+
+                yield return start + offset;
             }
         }
     }
