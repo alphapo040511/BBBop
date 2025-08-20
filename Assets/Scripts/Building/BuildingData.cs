@@ -26,6 +26,6 @@ public class BuildingData : ScriptableObject
 
     [Header("자원 생산 설정")]
     public bool canProduceResource;     // 자원 생산 가능 여부
-    public int goldAmount;              // 골드 생산량
-    public float intervalTime;          // 골드 생산 주기
+    public int goldAmount = 1;              // 골드 생산량
+    public float intervalTime = 1;          // 골드 생산 주기
 }

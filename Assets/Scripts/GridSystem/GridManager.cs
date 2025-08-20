@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 
 public class GridManager : MonoBehaviour
@@ -54,6 +55,7 @@ public class GridManager : MonoBehaviour
         return new Vector2Int(x, z);
     }
 
+    // 범위가 모두 유효한지 확인
     public bool AreAllTilesValid(Vector2Int start, Vector2Int size, int rotation)
     {
         foreach(Vector2Int pos in GetCoveredTiles(start, size, rotation))
@@ -87,6 +89,7 @@ public class GridManager : MonoBehaviour
     // 건물 배치
     public bool PlaceBuilding(Vector2Int start, BuildingData item, int rotation)
     {
+        // 설치 해야하는 범위중 그리드를 벗어난 칸이 있는지 확인
         if (!AreAllTilesValid(start, item.size, rotation)) 
         {
             Debug.Log("범위 밖임");
@@ -100,11 +103,16 @@ public class GridManager : MonoBehaviour
             return false;
         }
 
-
+        // 건물 생성 및 시작위치, 각도 전달
         PlacedItem newBuilding = Instantiate(item.buildingPrefab, new Vector3(start.x + 0.5f, 0, start.y + 0.5f), Quaternion.Euler(0, rotation, 0));
         newBuilding.transform.SetParent(buildingsLayer);
         newBuilding.Start = start;
         newBuilding.Rotation = rotation;
+
+        if(item.canProduceResource)             // 해당 건물이 자원 생성이 가능한 경우
+        {
+            newBuilding.AddComponent<ResourceGenerator>().Initialized(item);        // 자원 생성 컴포넌트 부착
+        }
 
         // 건물 범위 채우기
         foreach (var pos in GetCoveredTiles(start, item.size, rotation))
@@ -146,6 +154,43 @@ public class GridManager : MonoBehaviour
 
         item = buildingsGrid[x, z];                //건물이 있는경우 해당 오브젝트 반환
         return true;
+    }
+
+
+    // 시작 지점, 크기, 각도로 차지하는 칸 범위를 반환
+    public IEnumerable<Vector2Int> GetCoveredTiles(Vector2Int start, Vector2Int size, int rotation)
+    {
+        int w = size.x;
+        int h = size.y;
+
+        for (int x = 0; x < w; x++)
+        {
+            for (int y = 0; y < h; y++)
+            {
+                Vector2Int offset = new Vector2Int(x, y);
+
+                // Rotation 처리
+                switch (rotation % 360)
+                {
+                    case 0: // 그대로
+                        break;
+
+                    case 90:
+                        offset = new Vector2Int(y, -x);
+                        break;
+
+                    case 180:
+                        offset = new Vector2Int(-x, -y);
+                        break;
+
+                    case 270:
+                        offset = new Vector2Int(-y, x);
+                        break;
+                }
+
+                yield return start + offset;
+            }
+        }
     }
 
     // 격자 시각화 (Scene 뷰에서) - 오브젝트 중심에 맞춤
@@ -195,41 +240,6 @@ public class GridManager : MonoBehaviour
 
                     Gizmos.DrawCube(tileCenter, new Vector3(cellSize, 0.1f, cellSize));
                 }
-            }
-        }
-    }
-
-    public IEnumerable<Vector2Int> GetCoveredTiles(Vector2Int start, Vector2Int size, int rotation)
-    {
-        int w = size.x;
-        int h = size.y;
-
-        for (int x = 0; x < w; x++)
-        {
-            for (int y = 0; y < h; y++)
-            {
-                Vector2Int offset = new Vector2Int(x, y);
-
-                // Rotation 처리
-                switch (rotation % 360)
-                {
-                    case 0: // 그대로
-                        break;
-
-                    case 90:
-                        offset = new Vector2Int(y, -x);
-                        break;
-
-                    case 180:
-                        offset = new Vector2Int(-x, -y);
-                        break;
-
-                    case 270:
-                        offset = new Vector2Int(-y, x);
-                        break;
-                }
-
-                yield return start + offset;
             }
         }
     }
