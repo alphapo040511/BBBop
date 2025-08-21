@@ -33,19 +33,19 @@ public class CraneReward : MonoBehaviour
 
         Probability selectedProbability;
 
-        if (roll < commonRate)                              //roll이 일반 등급의 확률(69)보다 낮을 때
+        if (roll < commonRate)                              //roll이 일반 등급의 확률 보다 낮을 때(0 ~ 68)
         {
             selectedProbability = Probability.Common;
         }
-        else if (roll < commonRate + rareRate)              //roll이 일반 등급 + 희귀 등급 더한 값(69 + 15)보다 낮을 때
+        else if (roll < commonRate + rareRate)              //roll이 일반 등급 + 희귀 등급 더한 값 보다 낮을 때(69 ~ 88)
         {
             selectedProbability = Probability.Rare;
         }
-        else if (roll < commonRate + rareRate + epicRate)   //roll이 일반 등급 + 희귀 등급 + 영웅 등급을 더한 값(69 + 15 + 5)보다 낮을 때
+        else if (roll < commonRate + rareRate + epicRate)   //roll이 일반 등급 + 희귀 등급 + 영웅 등급을 더한 값 보다 낮을 때(89 ~ 98)
         {
             selectedProbability = Probability.Epic;
         }
-        else                                                //그 외
+        else                                                //그 외 (99)
         {
             selectedProbability = Probability.Unique;
         }
