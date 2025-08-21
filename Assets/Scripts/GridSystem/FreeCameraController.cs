@@ -1,7 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class FreeCameraController : MonoBehaviour
 {
+    public List<Camera> cameras = new List<Camera>();   
+
     [Header("카메라 이동 설정")]
     public float moveSpeed = 10f;
     public float fastMoveSpeed = 20f;
@@ -11,9 +14,11 @@ public class FreeCameraController : MonoBehaviour
     [Header("카메라 제한")]
     public float minY = 1f;
     public float maxY = 50f;
+    public float maxSize = 5f;
 
     private float rotationX = 0f;
     private float rotationY = 0f;
+    private float orthographicSize = 3f;
     private bool isMouseLook = false;
 
     void Start()
@@ -72,20 +77,20 @@ public class FreeCameraController : MonoBehaviour
         // WASD 이동
         Vector3 moveDirection = Vector3.zero;
 
-        if (Input.GetKey(KeyCode.W))
-            moveDirection += transform.forward;
-        if (Input.GetKey(KeyCode.S))
-            moveDirection -= transform.forward;
+        //if (Input.GetKey(KeyCode.W))
+        //    moveDirection += transform.forward;
+        //if (Input.GetKey(KeyCode.S))
+        //    moveDirection -= transform.forward;
         if (Input.GetKey(KeyCode.A))
             moveDirection -= transform.right;
         if (Input.GetKey(KeyCode.D))
             moveDirection += transform.right;
 
         // 수직 이동 (Q, E)
-        if (Input.GetKey(KeyCode.Q))
-            moveDirection -= transform.up;
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKey(KeyCode.W))
             moveDirection += transform.up;
+        if (Input.GetKey(KeyCode.S))
+            moveDirection -= transform.up;
 
         // 이동 적용
         transform.position += moveDirection.normalized * currentSpeed * Time.deltaTime;
@@ -102,7 +107,14 @@ public class FreeCameraController : MonoBehaviour
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         if (scroll != 0)
         {
-            transform.position += transform.forward * scroll * scrollSpeed;
+            orthographicSize -= scroll * scrollSpeed;
+
+            orthographicSize = Mathf.Clamp(orthographicSize, 1f, maxSize);
+
+            for (int i = 0; i < cameras.Count; i++) 
+            {
+                cameras[i].orthographicSize = orthographicSize;
+            }
         }
     }
 }

@@ -10,7 +10,8 @@ public enum GameState
     Playing,
     Paused,
     GameOver,
-    Loading
+    Loading,
+    EditMode
 }
 
 public class GameManager : SingletonMonoBehaviour<GameManager>
@@ -117,6 +118,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             case GameState.GameOver:
                 break;
             case GameState.Loading:
+                break;
+            case GameState.EditMode:
                 break;
         }
     }

@@ -7,7 +7,7 @@ public class FurnitureData : ScriptableObject
 {
     [Header("기본 설정")]
     public string id;
-    public PlacedFurniture buildingPrefab;
+    public PlacedFurniture furniturePrefab;
     public Sprite icon;
     [Tooltip("등급")]public Probability probability;
 
@@ -23,9 +23,9 @@ public class FurnitureData : ScriptableObject
     {
         get
         {
-            if (buildingPrefab != null)
+            if (furniturePrefab != null)
             {
-                return new Vector2Int(buildingPrefab.width, buildingPrefab.depth);
+                return new Vector2Int(furniturePrefab.width, furniturePrefab.depth);
             }
             else
             {

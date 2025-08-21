@@ -5,7 +5,7 @@ using UnityEngine;
 //매니저 클래스들의 기본 틀
 public class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBehaviour      // T는 MonoBehaviour를 상속한 클래스만 가능
 {
-    private static T _instance;
+    protected static T _instance;
     public static T Instance
     {
         get

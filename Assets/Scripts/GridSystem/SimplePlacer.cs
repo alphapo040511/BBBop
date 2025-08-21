@@ -34,6 +34,8 @@ public class SimplePlacer : MonoBehaviour
 
     void Update()
     {
+        //if (GameManager.Instance.currentGameState != GameState.EditMode) return;
+
         HandleInput();
         HandleMouseClick();
     }

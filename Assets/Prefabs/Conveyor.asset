@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b2614a3e488a51b4685fa93f1f72176e, type: 3}
-  m_Name: Capsule_Default
+  m_Name: Conveyor
   m_EditorClassIdentifier: 
-  id: Capsule001
-  furniturePrefab: {fileID: -8974139758646253564, guid: 9555810d1e2223445b24a7ff225ef8da,
+  id: Conveyor
+  furniturePrefab: {fileID: -1509626912058804306, guid: 03f0293d9a1cabc4d806b89a7f8e704b,
     type: 3}
   icon: {fileID: 0}
   probability: 0
-  canProduceResource: 1
+  canProduceResource: 0
   goldAmount: 1
   intervalTime: 1

@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Capsule_Fallen
   m_EditorClassIdentifier: 
   id: Capsule002
-  buildingPrefab: {fileID: 1867641264328664959, guid: 7d807eea0164a3b44af4dc75db2a920f,
+  furniturePrefab: {fileID: 1867641264328664959, guid: 7d807eea0164a3b44af4dc75db2a920f,
     type: 3}
   icon: {fileID: 0}
+  probability: 0
   canProduceResource: 1
   goldAmount: 2
   intervalTime: 1

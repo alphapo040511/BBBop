@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 
 
 public class GridManager : MonoBehaviour
@@ -112,7 +113,7 @@ public class GridManager : MonoBehaviour
         }
 
         // 건물 생성 및 시작위치, 각도 전달
-        PlacedFurniture newFurniture = Instantiate(item.buildingPrefab, new Vector3(start.x + 0.5f, 0, start.y + 0.5f), Quaternion.Euler(0, rotation, 0));
+        PlacedFurniture newFurniture = Instantiate(item.furniturePrefab, new Vector3(start.x + 0.5f, 0, start.y + 0.5f), Quaternion.Euler(0, rotation, 0));
         newFurniture.transform.SetParent(buildingsLayer);
         newFurniture.Start = start;
         newFurniture.Rotation = rotation;
@@ -209,7 +210,7 @@ public class GridManager : MonoBehaviour
         {
             FurnitureData item = FurnitureManager.Instance.furnitureDatas.Find(o => o.id == data.id);
 
-            PlacedFurniture newFurniture = Instantiate(item.buildingPrefab, new Vector3(data.start.x + 0.5f, 0, data.start.y + 0.5f), Quaternion.Euler(0, data.rotation, 0));
+            PlacedFurniture newFurniture = Instantiate(item.furniturePrefab, new Vector3(data.start.x + 0.5f, 0, data.start.y + 0.5f), Quaternion.Euler(0, data.rotation, 0));
             newFurniture.transform.SetParent(buildingsLayer);
             newFurniture.Start = data.start;
             newFurniture.Rotation = data.rotation;
@@ -272,6 +273,8 @@ public class GridManager : MonoBehaviour
     void OnDrawGizmos()
     {
         if (!showGridLines) return;
+
+        Handles.zTest = UnityEngine.Rendering.CompareFunction.LessEqual;
 
         Gizmos.color = gridColor;
 
