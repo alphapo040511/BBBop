@@ -55,12 +55,8 @@ public class SaveManager : SingletonMonoBehaviour<SaveManager>
     }
 
     public void LoadPlacedData(GridManager gridManager)
-    {
-        if(_saveData == null)
-        {
-            LoadData();
-        }
-
+    { 
+        LoadData();
         gridManager.InstantiateFormSave(_saveData.placedFurnituresData);
     }
 }

@@ -1,7 +1,13 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SimplePlacer : MonoBehaviour
 {
+    [Header("UI 요소")]
+    public Button EnterButton;
+    public Button ApplyButton;
+    public Button CancleButton;
+
     [Header("건축 대상")]
     public FurnitureData currentFurniture;
 
@@ -29,6 +35,41 @@ public class SimplePlacer : MonoBehaviour
         if (gridManager == null)
         {
             Debug.LogError("GridManager를 찾을 수 없습니다!");
+        }
+
+        if(EnterButton != null)
+        {
+            EnterButton.onClick.AddListener(EnterEditMode);
+        }
+
+        if (ApplyButton != null)
+        {
+            ApplyButton.onClick.AddListener(ApplyEdit);
+        }
+
+        if (CancleButton != null)
+        {
+            CancleButton.onClick.AddListener(CancleEdit);
+        }
+
+        gameObject.SetActive(false);
+    }
+
+    private void OnDestroy()
+    {
+        if (EnterButton != null)
+        {
+            EnterButton.onClick.RemoveListener(EnterEditMode);
+        }
+
+        if (ApplyButton != null)
+        {
+            ApplyButton.onClick.RemoveListener(ApplyEdit);
+        }
+
+        if (CancleButton != null)
+        {
+            CancleButton.onClick.RemoveListener(CancleEdit);
         }
     }
 
@@ -142,6 +183,33 @@ public class SimplePlacer : MonoBehaviour
         {
             Debug.Log($"{currentMode} 배치: ({x}, {z})");
         }
+    }
+
+    public void EnterEditMode()
+    {
+        EnterButton.gameObject.SetActive(false);
+        gameObject.SetActive(true);
+        GameManager.Instance.ChangeGameState(GameState.EditMode);
+    }
+
+    public void ApplyEdit()
+    {
+        SaveManager.Instance.SaveData();
+        ExitEditMode();
+    }
+
+    public void CancleEdit()
+    {
+        gridManager.LoadFurnitureData();
+        ExitEditMode();
+    }
+
+
+    public void ExitEditMode()
+    {
+        EnterButton.gameObject.SetActive(true);
+        gameObject.SetActive(false);
+        GameManager.Instance.ChangeGameState(GameState.Playing);
     }
 
     void OnGUI()

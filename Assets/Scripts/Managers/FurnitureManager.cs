@@ -1,14 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Unity.VisualScripting;
 using UnityEngine;
-using static SimplePlacer;
 
 // 저장용 class
 [System.Serializable]
 public class OwnedFurniture
 {
+    public Action<int> onChangeCount;
+
     public string furnitureId;
     public int count;  // 보유 중인 개수
 
@@ -60,6 +61,7 @@ public class FurnitureManager : SingletonMonoBehaviour<FurnitureManager>
             ownedFurnitures.Add(id, new OwnedFurniture(id, count));
         }
 
+        ownedFurnitures[id].onChangeCount?.Invoke(ownedFurnitures[id].count);
         Debug.Log($"(ID:{id}) 보유 개수 : {ownedFurnitures[id].count}");
     }
 
@@ -69,6 +71,7 @@ public class FurnitureManager : SingletonMonoBehaviour<FurnitureManager>
         if (ownedFurnitures.ContainsKey(id))
         {
             ownedFurnitures[id].count--;
+            ownedFurnitures[id].onChangeCount?.Invoke(ownedFurnitures[id].count);
             Debug.Log($"(ID:{id}) 보유 개수 : {ownedFurnitures[id].count}");
 
             if (ownedFurnitures[id].count <= 0)
@@ -138,6 +141,29 @@ public class FurnitureManager : SingletonMonoBehaviour<FurnitureManager>
     {
         placedFurnitures.Clear();
     }
+
+    public FurnitureData FindFurnitureDate(string id)
+    {
+        FurnitureData temp = furnitureDatas.Find(x => x.id == id);
+        if(temp == null)
+        {
+            return null;
+        }
+
+        return temp;
+    }
+
+    public OwnedFurniture FindOwnedDate(string id)
+    {
+        if(ownedFurnitures.ContainsKey(id))
+        {
+            return null;
+        }
+
+
+        return ownedFurnitures[id];
+    }
+
     void OnGUI()
     {
         int count = 0;
