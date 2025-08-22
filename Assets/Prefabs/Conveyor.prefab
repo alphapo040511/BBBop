@@ -70,8 +70,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 
   Start: {x: 0, y: 0}
-  width: 0
-  depth: 0
+  width: 1
+  depth: 1
   Rotation: 0
 --- !u!1001 &5619251213557540492
 PrefabInstance:

@@ -8,7 +8,7 @@ public class EditModeUI : MonoBehaviour
     public Transform content;                   // UI 를 생성할 Transform
 
     public SimplePlacer placer;
-    
+
     void Start()
     {
         foreach(var furniture in FurnitureManager.Instance.furnitureDatas)
@@ -17,9 +17,24 @@ public class EditModeUI : MonoBehaviour
         }
     }
 
+    public void ResetUI()
+    {
+        foreach(Transform ui in content)
+        {
+            Destroy(ui.gameObject);
+        }
+
+        foreach (var furniture in FurnitureManager.Instance.furnitureDatas)
+        {
+            CreatUI(furniture);
+        }
+    }
+
     private void CreatUI(FurnitureData data)
     {
-        if (UIPrefab || content == null) return;
+        if (UIPrefab == null || content == null) return;
+
+        Debug.Log(data.id);
 
         OwnedFurnitureUI ui = Instantiate(UIPrefab, content);
         ui.InitializeUI(data, placer);

@@ -48,6 +48,21 @@ public class FurnitureManager : SingletonMonoBehaviour<FurnitureManager>
     public ReadOnlyDictionary<string, OwnedFurniture> OwnedFurnitures => new ReadOnlyDictionary<string, OwnedFurniture>(ownedFurnitures);
     public ReadOnlyDictionary<Vector2Int, PlacedFurnitureData> PlacedFurnitures => new ReadOnlyDictionary<Vector2Int, PlacedFurnitureData>(placedFurnitures);
 
+    protected override void Awake()
+    {
+        base.Awake();
+        InitilizeOwned();
+    }
+
+    private void InitilizeOwned()
+    { 
+        foreach(var data in furnitureDatas)
+        {
+            ownedFurnitures[data.id] = new OwnedFurniture(data.id, 0);
+
+            ownedFurnitures[data.id].onChangeCount?.Invoke(ownedFurnitures[data.id].count);
+        }
+    }
 
     // æ∆¿Ã≈€ »πµÊ
     public void GetFurniture(string id, int count = 1)
@@ -73,11 +88,6 @@ public class FurnitureManager : SingletonMonoBehaviour<FurnitureManager>
             ownedFurnitures[id].count--;
             ownedFurnitures[id].onChangeCount?.Invoke(ownedFurnitures[id].count);
             Debug.Log($"(ID:{id}) ∫∏¿Ø ∞≥ºˆ : {ownedFurnitures[id].count}");
-
-            if (ownedFurnitures[id].count <= 0)
-            {
-                ownedFurnitures.Remove(id);
-            }
 
             return true;
         }
@@ -129,7 +139,7 @@ public class FurnitureManager : SingletonMonoBehaviour<FurnitureManager>
 
     public void LoadOwnedData(List<OwnedFurniture> ownedFurnitures)
     {
-        this.ownedFurnitures.Clear();
+        InitilizeOwned();
         foreach (var owned in ownedFurnitures)
         {
             GetFurniture(owned.furnitureId, owned.count);
@@ -155,7 +165,7 @@ public class FurnitureManager : SingletonMonoBehaviour<FurnitureManager>
 
     public OwnedFurniture FindOwnedDate(string id)
     {
-        if(ownedFurnitures.ContainsKey(id))
+        if(!ownedFurnitures.ContainsKey(id))
         {
             return null;
         }

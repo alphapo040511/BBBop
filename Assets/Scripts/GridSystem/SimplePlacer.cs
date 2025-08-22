@@ -1,5 +1,8 @@
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+
 
 public class SimplePlacer : MonoBehaviour
 {
@@ -18,7 +21,9 @@ public class SimplePlacer : MonoBehaviour
     public int currentRotation = 0; // 0=북, 1=동, 2=남, 3=서
 
     private GridManager gridManager;
+    private EditModeUI editModeUI;
     private Camera playerCamera;
+
 
     public enum PlaceMode
     {
@@ -30,6 +35,7 @@ public class SimplePlacer : MonoBehaviour
     void Start()
     {
         gridManager = FindObjectOfType<GridManager>();
+        editModeUI = FindObjectOfType<EditModeUI>();
         playerCamera = Camera.main;
 
         if (gridManager == null)
@@ -137,6 +143,11 @@ public class SimplePlacer : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0)) // 좌클릭
         {
+            // UI 위 클릭이면 무시
+            if (UnityEngine.EventSystems.EventSystem.current != null
+                && UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+                return;
+
             Vector3 mousePos = Input.mousePosition;
             Ray ray = playerCamera.ScreenPointToRay(mousePos);
 
@@ -201,6 +212,7 @@ public class SimplePlacer : MonoBehaviour
     public void CancleEdit()
     {
         gridManager.LoadFurnitureData();
+        editModeUI.ResetUI();
         ExitEditMode();
     }
 
