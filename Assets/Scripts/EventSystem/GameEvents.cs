@@ -7,6 +7,7 @@ public static class GameEvents
 {
     // 이벤트 정의
     public static event System.Action<string> OnSceneChanged;       // 씬 전환 이벤트
+    public static event System.Action<GameState> OnGameStateChanged;// 상태 전환 이벤트
     public static System.Action<float> OnVolumeChanged;             // 볼륨 변경 이벤트
     public static System.Action<int> OnScoreChanged;                // 점수 변경 이벤트
     public static event System.Action OnGamePaused;                 // 게임 정지 이벤트
@@ -16,6 +17,7 @@ public static class GameEvents
 
     // 이벤트 호출 메서드
     public static void SceneChanged(string sceneName) => OnSceneChanged?.Invoke(sceneName);
+    public static void GameStateChanged(GameState gameState) => OnGameStateChanged?.Invoke(gameState);
     public static void VolumeChanged(float volume) => OnVolumeChanged?.Invoke(volume);
     public static void ScoreChanged(int score) => OnScoreChanged?.Invoke(score);
     public static void GamePaused() => OnGamePaused?.Invoke();

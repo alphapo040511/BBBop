@@ -101,6 +101,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         currentGameState = newState;
 
         OnGameStateChanged(newState);
+        GameEvents.GameStateChanged(newState);
 
         Debug.Log($"게임 상태 변경: {previousGameState} -> {currentGameState}");
     }

@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlacedFurniture : MonoBehaviour
 {
     [HideInInspector] public string id;
-    [HideInInspector] public Vector2Int Start;              // ÁÂÇÏ´Ü ±âÁØ
+    public Vector2Int Start;              // ÁÂÇÏ´Ü ±âÁØ
     public int width;                                       // Æø
     public int depth;                                       // ±íÀÌ
 

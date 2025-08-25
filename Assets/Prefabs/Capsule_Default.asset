@@ -19,4 +19,4 @@ MonoBehaviour:
   probability: 0
   canProduceResource: 1
   goldAmount: 1
-  intervalTime: 1
+  intervalTime: 3

@@ -1471,6 +1471,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 11871df03ba57354d8310a34e52b210a, type: 2}
   - {fileID: 11400000, guid: 484c2f7169faae947b02b1d5c3ab2cee, type: 2}
   - {fileID: 11400000, guid: ae252a4185f86b44394a1ccae18e3d61, type: 2}
+  - {fileID: 11400000, guid: 5648c989c82acb54fb44d163e6c49307, type: 2}
 --- !u!4 &691795000
 Transform:
   m_ObjectHideFlags: 0
@@ -1915,7 +1916,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 3
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1962,6 +1963,7 @@ MonoBehaviour:
   cameras:
   - {fileID: 961739752}
   - {fileID: 1509810780}
+  editCamera: {fileID: 1509810780}
   moveSpeed: 10
   fastMoveSpeed: 20
   mouseSensitivity: 2
@@ -3153,7 +3155,7 @@ Transform:
   m_GameObject: {fileID: 1497074355}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.099999994, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3176,7 +3178,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!20 &1509810780
 Camera:
   m_ObjectHideFlags: 0
@@ -3212,7 +3214,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 3
+  orthographic size: 5
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2

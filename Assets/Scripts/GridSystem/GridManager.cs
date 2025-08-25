@@ -233,6 +233,7 @@ public class GridManager : MonoBehaviour
     #endregion
 
     #region Utility
+
     // 시작 지점, 크기, 각도로 차지하는 칸 범위를 반환
     public IEnumerable<Vector2Int> GetCoveredTiles(Vector2Int start, Vector2Int size, int rotation)
     {

@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class FreeCameraController : MonoBehaviour
 {
-    public List<Camera> cameras = new List<Camera>();   
+    public List<Camera> cameras = new List<Camera>();
+
+    public Camera editCamera;
 
     [Header("카메라 이동 설정")]
     public float moveSpeed = 10f;
@@ -18,11 +20,13 @@ public class FreeCameraController : MonoBehaviour
 
     private float rotationX = 0f;
     private float rotationY = 0f;
-    private float orthographicSize = 3f;
+    private float orthographicSize = 5f;
     private bool isMouseLook = false;
 
     void Start()
     {
+        GameEvents.OnGameStateChanged += ChangeGameState;
+
         // 마우스 커서 설정
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -31,6 +35,11 @@ public class FreeCameraController : MonoBehaviour
         Vector3 rotation = transform.eulerAngles;
         rotationX = rotation.x;
         rotationY = rotation.y;
+    }
+
+    private void OnDestroy()
+    {
+        GameEvents.OnGameStateChanged -= ChangeGameState;
     }
 
     void Update()
@@ -109,12 +118,25 @@ public class FreeCameraController : MonoBehaviour
         {
             orthographicSize -= scroll * scrollSpeed;
 
-            orthographicSize = Mathf.Clamp(orthographicSize, 1f, maxSize);
+            orthographicSize = Mathf.Clamp(orthographicSize, 2f, maxSize);
 
             for (int i = 0; i < cameras.Count; i++) 
             {
                 cameras[i].orthographicSize = orthographicSize;
             }
+        }
+    }
+
+    public void ChangeGameState(GameState gameState)
+    {
+        switch(gameState)
+        {
+            case GameState.EditMode:
+                editCamera.gameObject.SetActive(true);
+                break;
+            default:
+                editCamera.gameObject.SetActive(false);
+                break;
         }
     }
 }

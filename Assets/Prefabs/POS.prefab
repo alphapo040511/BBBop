@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8782338417955602684}
   - component: {fileID: 1705599304744925494}
   - component: {fileID: 70551577576362954}
+  - component: {fileID: -2866380077614321774}
   m_Layer: 0
   m_Name: POS
   m_TagString: Untagged
@@ -73,6 +74,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 1, z: 1}
   m_Center: {x: 0.5, y: 0.5, z: 0}
+--- !u!114 &-2866380077614321774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8654107054162155403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7472567ab88815d409dab675b354c955, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
 --- !u!1001 &8317019685283434824
 PrefabInstance:
   m_ObjectHideFlags: 0
