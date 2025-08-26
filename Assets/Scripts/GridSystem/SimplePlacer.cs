@@ -6,6 +6,10 @@ using UnityEngine.EventSystems;
 
 public class SimplePlacer : MonoBehaviour
 {
+
+    public event System.Action<string> OnChangeFurniture;
+    public Vector2Int targetPosition { get; private set; }
+
     [Header("UI 요소")]
     public Button EnterButton;
     public Button ApplyButton;
@@ -141,6 +145,22 @@ public class SimplePlacer : MonoBehaviour
 
     void HandleMouseClick()
     {
+        if (UnityEngine.EventSystems.EventSystem.current != null
+            && UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+                return;
+
+        Vector3 mousePos = Input.mousePosition;
+        Ray ray = playerCamera.ScreenPointToRay(mousePos);
+
+        // 바닥 평면과의 교차점
+        if (ray.direction.y < 0)
+        {
+            float distance = -ray.origin.y / ray.direction.y;
+            Vector3 hitPoint = ray.origin + ray.direction * distance;
+
+            targetPosition = gridManager.WorldToGridPosition(hitPoint);
+        }
+
         if (Input.GetMouseButtonDown(0)) // 좌클릭
         {
             // UI 위 클릭이면 무시
@@ -148,22 +168,10 @@ public class SimplePlacer : MonoBehaviour
                 && UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
                 return;
 
-            Vector3 mousePos = Input.mousePosition;
-            Ray ray = playerCamera.ScreenPointToRay(mousePos);
-
-            // 바닥 평면과의 교차점
-            if (ray.direction.y < 0)
-            {
-                float distance = -ray.origin.y / ray.direction.y;
-                Vector3 hitPoint = ray.origin + ray.direction * distance;
-
-                Vector2Int gridPos = gridManager.WorldToGridPosition(hitPoint);
-
-                if (gridManager.IsValidGridPosition(gridPos.x, gridPos.y))
+                if (gridManager.IsValidGridPosition(targetPosition.x, targetPosition.y))
                 { 
-                    PlaceObject(gridPos.x, gridPos.y);
+                    PlaceObject(targetPosition.x, targetPosition.y);
                 }
-            }
         }
     }
 
@@ -222,6 +230,12 @@ public class SimplePlacer : MonoBehaviour
         EnterButton.gameObject.SetActive(true);
         gameObject.SetActive(false);
         GameManager.Instance.ChangeGameState(GameState.Playing);
+    }
+
+    public void SelectFurnitureChange(FurnitureData furnitureData)
+    {
+        currentFurniture = furnitureData;
+        OnChangeFurniture?.Invoke(furnitureData.id);
     }
 
     void OnGUI()

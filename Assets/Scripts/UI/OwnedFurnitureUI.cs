@@ -21,7 +21,7 @@ public class OwnedFurnitureUI : MonoBehaviour
 
     public void Select()
     {
-        placer.currentFurniture = FurnitureManager.Instance.FindFurnitureDate(ownedFurniture.furnitureId);
+        placer.SelectFurnitureChange(FurnitureManager.Instance.FindFurnitureDate(ownedFurniture.furnitureId));
     }
 
     public void InitializeUI(FurnitureData data, SimplePlacer placer)
