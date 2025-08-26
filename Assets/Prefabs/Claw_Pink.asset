@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Claw_Pink
   m_EditorClassIdentifier: 
   id: Claw_Default
+  itemName: "\uC778\uD615 \uBF51\uAE30(Pink)"
   furniturePrefab: {fileID: 6847135087820912179, guid: fac0cf25ac5adde4da78a2b15f2e58a5,
     type: 3}
   icon: {fileID: 0}

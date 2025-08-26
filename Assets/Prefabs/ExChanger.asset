@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b2614a3e488a51b4685fa93f1f72176e, type: 3}
-  m_Name: Conveyor
+  m_Name: ExChanger
   m_EditorClassIdentifier: 
-  id: Conveyor
-  itemName: "\uCEE8\uBC30\uC774\uC5B4"
-  furniturePrefab: {fileID: -1509626912058804306, guid: 03f0293d9a1cabc4d806b89a7f8e704b,
+  id: Exchanger
+  itemName: "\uB3C8 \uAD50\uD658\uAE30"
+  furniturePrefab: {fileID: 7902703570916429896, guid: fb723fda7e2cdcf4caf04a05a26e853a,
     type: 3}
   icon: {fileID: 0}
-  probability: 0
+  probability: 2
   canProduceResource: 0
   goldAmount: 1
   intervalTime: 1

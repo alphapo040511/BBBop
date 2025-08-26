@@ -5,14 +5,14 @@ using static UnityEngine.GraphicsBuffer;
 
 public class ResourceGenerator : Actor
 {
-    private FurnitureData furnitureData;
+    protected FurnitureData furnitureData;
 
 
-    private PlacedFurniture furniture;
+    protected PlacedFurniture furniture;
     [SerializeField] private Vector2Int GenPosition;
     [SerializeField] private Vector2Int OutPosition;
     [SerializeField] private GameObject money;
-    private GridManager gridManager;
+    protected GridManager gridManager;
 
     private float timer = 0;
 
@@ -57,9 +57,11 @@ public class ResourceGenerator : Actor
 
             if (money == null)
             {
+                float rotation = Random.Range(0f, 360f);
+
                 money = ObjectPool.Instance.Spawn("Money"
                     ,new Vector3(GenPosition.x + 0.5f, 0.5f, GenPosition.y + 0.5f)
-                    , Quaternion.Euler(0, furniture.Rotation, 0));
+                    , Quaternion.Euler(0, rotation, 0));
 
                 money.GetComponent<Money>().money = furnitureData.goldAmount;
             }

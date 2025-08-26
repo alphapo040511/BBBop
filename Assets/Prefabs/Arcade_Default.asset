@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Arcade_Default
   m_EditorClassIdentifier: 
   id: Arcade_Default
+  itemName: "\uC544\uCF00\uC774\uB4DC(White)"
   furniturePrefab: {fileID: 4814152891628731066, guid: 9d488094e2d5ebf4e96e9b9c29f2c22b,
     type: 3}
   icon: {fileID: 0}

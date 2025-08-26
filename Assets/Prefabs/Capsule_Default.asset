@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Capsule_Default
   m_EditorClassIdentifier: 
   id: Capsule_Default
+  itemName: "\uCEA1\uC290 \uBF51\uAE30"
   furniturePrefab: {fileID: -8974139758646253564, guid: 9555810d1e2223445b24a7ff225ef8da,
     type: 3}
   icon: {fileID: 0}

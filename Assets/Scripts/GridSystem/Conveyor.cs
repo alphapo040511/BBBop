@@ -5,11 +5,11 @@ using UnityEngine.UIElements;
 
 public class Conveyor : Actor
 {
-    private PlacedFurniture furniture;
+    protected PlacedFurniture furniture;
 
     private Queue<GameObject> moneyObjs = new Queue<GameObject>();
     [SerializeField]private GameObject target;
-    private GridManager gridManager;
+    protected GridManager gridManager;
 
     private void OnDestroy()
     {
@@ -36,7 +36,7 @@ public class Conveyor : Actor
         //}
     }
 
-    private void Move()
+    protected virtual void Move()
     {
         // 목표 위치 (컨베이어 위치 + y 오프셋)
         Vector3 targetPos = transform.position + Vector3.up * 0.5f;
@@ -84,7 +84,7 @@ public class Conveyor : Actor
         return null;
     }
 
-    private Vector2Int NextConveyorPos()
+    protected Vector2Int NextConveyorPos()
     {
         if (furniture == null) return new Vector2Int(-1, -1);       // 값을 찾을 수 없도록 음수 자리로 return
 

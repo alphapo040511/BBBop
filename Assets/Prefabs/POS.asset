@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: POS
   m_EditorClassIdentifier: 
   id: POS
+  itemName: "\uACC4\uC0B0\uAE30"
   furniturePrefab: {fileID: 1705599304744925494, guid: 6711d566a571a2b43a6eee5c76d3ea57,
     type: 3}
   icon: {fileID: 0}

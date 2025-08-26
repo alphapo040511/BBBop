@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Arcade_Black
   m_EditorClassIdentifier: 
   id: Arcade_Black
+  itemName: "\uC544\uCF00\uC774\uB4DC(Black)"
   furniturePrefab: {fileID: 819180832280842488, guid: d498a5d11c17ed744aa366c2ac4e0cb6,
     type: 3}
   icon: {fileID: 0}

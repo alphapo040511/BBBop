@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Claw_Default
   m_EditorClassIdentifier: 
   id: Claw_Default
+  itemName: "\uC778\uD615 \uBF51\uAE30"
   furniturePrefab: {fileID: 8125607285341741888, guid: e2c754cefba035640a906bafa9039451,
     type: 3}
   icon: {fileID: 0}
