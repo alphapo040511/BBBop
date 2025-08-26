@@ -23,6 +23,8 @@ public class FreeCameraController : MonoBehaviour
     private float orthographicSize = 5f;
     private bool isMouseLook = false;
 
+    private 
+
     void Start()
     {
         GameEvents.OnGameStateChanged += ChangeGameState;
@@ -44,7 +46,7 @@ public class FreeCameraController : MonoBehaviour
 
     void Update()
     {
-        HandleMouseLook();
+        //HandleMouseLook();
         HandleMovement();
         HandleMouseScroll();
     }
@@ -97,16 +99,23 @@ public class FreeCameraController : MonoBehaviour
 
         // 수직 이동 (Q, E)
         if (Input.GetKey(KeyCode.W))
-            moveDirection += transform.up;
+            moveDirection += Vector3.up;
         if (Input.GetKey(KeyCode.S))
-            moveDirection -= transform.up;
+            moveDirection -= Vector3.up;
 
         // 이동 적용
         transform.position += moveDirection.normalized * currentSpeed * Time.deltaTime;
 
         // Y축 제한
         Vector3 pos = transform.position;
-        pos.y = Mathf.Clamp(pos.y, minY, maxY);
+        pos.x = Mathf.Clamp(pos.x, -13, 13);
+
+        if(GameManager.Instance.currentGameState == GameState.EditMode)
+            pos.y = Mathf.Clamp(pos.y, minY, maxY);
+        else
+            pos.y = Mathf.Clamp(pos.y, minY, maxY + 5);                     // 편집 모드에서는 조금 더 위로
+
+        pos.z = Mathf.Clamp(pos.z, -13, 13);
         transform.position = pos;
     }
 
@@ -132,9 +141,11 @@ public class FreeCameraController : MonoBehaviour
         switch(gameState)
         {
             case GameState.EditMode:
+                transform.rotation = Quaternion.Euler(45, 45, 0f);
                 editCamera.gameObject.SetActive(true);
                 break;
             default:
+                transform.rotation = Quaternion.Euler(25, 45, 0f);
                 editCamera.gameObject.SetActive(false);
                 break;
         }
