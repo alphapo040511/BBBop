@@ -104,11 +104,11 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 1, g: 0.7198543, b: 0, a: 1}
+    m_PressedColor: {r: 0.5943396, g: 0.5943396, b: 0.5943396, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
+    m_FadeDuration: 0.3
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
@@ -153,6 +153,10 @@ MonoBehaviour:
   furnitureName: {fileID: 6794357500092614923}
   count: {fileID: 1386478850915280015}
   content: {fileID: 4049466814888037099}
+  commonColor: {r: 1, g: 1, b: 1, a: 1}
+  rareColor: {r: 0.495283, g: 0.6764677, b: 1, a: 1}
+  epicColor: {r: 0.88445985, g: 0.49982202, b: 0.9056604, a: 1}
+  uniqueColor: {r: 1, g: 0.8561772, b: 0.48584908, a: 1}
 --- !u!1 &4373892311559299519
 GameObject:
   m_ObjectHideFlags: 0

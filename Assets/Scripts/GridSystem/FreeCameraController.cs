@@ -111,9 +111,9 @@ public class FreeCameraController : MonoBehaviour
         pos.x = Mathf.Clamp(pos.x, -13, 13);
 
         if(GameManager.Instance.currentGameState == GameState.EditMode)
-            pos.y = Mathf.Clamp(pos.y, minY, maxY);
+            pos.y = Mathf.Clamp(pos.y, minY, 30);
         else
-            pos.y = Mathf.Clamp(pos.y, minY, maxY + 5);                     // 편집 모드에서는 조금 더 위로
+            pos.y = Mathf.Clamp(pos.y, minY, maxY);                     // 편집 모드에서는 조금 더 위로
 
         pos.z = Mathf.Clamp(pos.z, -13, 13);
         transform.position = pos;
@@ -145,7 +145,7 @@ public class FreeCameraController : MonoBehaviour
                 editCamera.gameObject.SetActive(true);
                 break;
             default:
-                transform.rotation = Quaternion.Euler(25, 45, 0f);
+                transform.rotation = Quaternion.Euler(30, 45, 0f);
                 editCamera.gameObject.SetActive(false);
                 break;
         }

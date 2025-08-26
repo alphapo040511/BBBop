@@ -34,8 +34,6 @@ public class EditModeUI : MonoBehaviour
     {
         if (UIPrefab == null || content == null) return;
 
-        Debug.Log(data.id);
-
         OwnedFurnitureUI ui = Instantiate(UIPrefab, content);
         ui.InitializeUI(data, placer);
     }

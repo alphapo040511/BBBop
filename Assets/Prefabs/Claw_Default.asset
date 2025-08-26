@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b2614a3e488a51b4685fa93f1f72176e, type: 3}
-  m_Name: Capsule_Fallen
+  m_Name: Claw_Default
   m_EditorClassIdentifier: 
-  id: Capsule_Fallen
-  furniturePrefab: {fileID: 1867641264328664959, guid: 7d807eea0164a3b44af4dc75db2a920f,
+  id: Claw_Default
+  furniturePrefab: {fileID: 8125607285341741888, guid: e2c754cefba035640a906bafa9039451,
     type: 3}
   icon: {fileID: 0}
-  probability: 0
+  probability: 1
   canProduceResource: 1
-  goldAmount: 2
-  intervalTime: 5
+  goldAmount: 3
+  intervalTime: 30

@@ -228,6 +228,7 @@ public class GridManager : MonoBehaviour
             FurnitureManager.Instance.PlaceFurniture(data);
         }
 
+        GameManager.Instance.ChangeGameState(GameState.Playing);
     }
 
     #endregion

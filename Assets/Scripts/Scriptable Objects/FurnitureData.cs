@@ -7,6 +7,7 @@ public class FurnitureData : ScriptableObject
 {
     [Header("기본 설정")]
     public string id;
+    public string itemName;
     public PlacedFurniture furniturePrefab;
     public Sprite icon;
     [Tooltip("등급")]public Probability probability;

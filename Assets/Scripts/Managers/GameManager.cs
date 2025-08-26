@@ -44,7 +44,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             gameTime += Time.deltaTime;
         }
 
-        HandleInput();
+        //HandleInput();
     }
 
     private void InitializeGame()
@@ -221,7 +221,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     {
         if (!hasFocus && currentGameState == GameState.Playing)
         {
-            PauseGame();
+            //PauseGame();
         }
     }
 }

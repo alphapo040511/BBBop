@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Conveyor : MonoBehaviour
+public class Conveyor : Actor
 {
     private PlacedFurniture furniture;
 
@@ -24,7 +24,7 @@ public class Conveyor : MonoBehaviour
         gridManager = FindObjectOfType<GridManager>();
     }
 
-    private void Update()
+    protected override void ActorUpdate()
     {
         if(target != null)
         {

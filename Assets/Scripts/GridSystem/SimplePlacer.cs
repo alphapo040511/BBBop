@@ -14,6 +14,7 @@ public class SimplePlacer : MonoBehaviour
     public Button EnterButton;
     public Button ApplyButton;
     public Button CancleButton;
+    public Button RemoveButton;
 
     [Header("건축 대상")]
     public FurnitureData currentFurniture;
@@ -62,6 +63,11 @@ public class SimplePlacer : MonoBehaviour
             CancleButton.onClick.AddListener(CancleEdit);
         }
 
+        if (RemoveButton != null)
+        {
+            RemoveButton.onClick.AddListener(RemoveMode);
+        }
+
         gameObject.SetActive(false);
     }
 
@@ -80,6 +86,11 @@ public class SimplePlacer : MonoBehaviour
         if (CancleButton != null)
         {
             CancleButton.onClick.RemoveListener(CancleEdit);
+        }
+
+        if (RemoveButton != null)
+        {
+            RemoveButton.onClick.RemoveListener(RemoveMode);
         }
     }
 
@@ -224,6 +235,10 @@ public class SimplePlacer : MonoBehaviour
         ExitEditMode();
     }
 
+    public void RemoveMode()
+    {
+        currentMode = PlaceMode.Remove;
+    }    
 
     public void ExitEditMode()
     {

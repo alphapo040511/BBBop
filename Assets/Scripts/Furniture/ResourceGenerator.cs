@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class ResourceGenerator : MonoBehaviour
+public class ResourceGenerator : Actor
 {
     private FurnitureData furnitureData;
 
@@ -47,7 +47,7 @@ public class ResourceGenerator : MonoBehaviour
         this.furnitureData = buildingData;
     }
 
-    private void Update()
+    protected override void ActorUpdate()
     {
         timer += Time.deltaTime;
         if(timer >= furnitureData.intervalTime)
