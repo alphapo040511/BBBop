@@ -174,14 +174,14 @@ public class FurnitureManager : SingletonMonoBehaviour<FurnitureManager>
         return ownedFurnitures[id];
     }
 
-    void OnGUI()
-    {
-        int count = 0;
-        foreach(var owned in ownedFurnitures.Values)
-        { 
-            GUI.Label(new Rect(0, 600 + count * 30, 180, 30), $"{owned.furnitureId} : {owned.count} °³");
-            count++;
-        }
-    }
+    //void OnGUI()
+    //{
+    //    int count = 0;
+    //    foreach(var owned in ownedFurnitures.Values)
+    //    { 
+    //        GUI.Label(new Rect(0, 600 + count * 30, 180, 30), $"{owned.furnitureId} : {owned.count} °³");
+    //        count++;
+    //    }
+    //}
 
 }

@@ -37,7 +37,7 @@ public class POS : Conveyor
 
         int amout = money.GetComponent<Money>().money;
         Debug.Log($"{amout}G È¹µæ");
-        ObjectPool.Instance.Despawn("Money", money);
+        ObjectPool.Instance.Despawn(money.name, money);
         moneyList.Remove(money); ;
 
         return true;
