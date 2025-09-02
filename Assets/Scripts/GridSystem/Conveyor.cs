@@ -8,7 +8,7 @@ public class Conveyor : Actor
     protected PlacedFurniture furniture;
 
     private Queue<GameObject> moneyObjs = new Queue<GameObject>();
-    [SerializeField]private GameObject target;
+    [SerializeField]protected GameObject target;
     protected GridManager gridManager;
 
     private void OnDestroy()

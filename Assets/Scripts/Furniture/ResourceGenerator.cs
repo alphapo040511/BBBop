@@ -5,6 +5,11 @@ using static UnityEngine.GraphicsBuffer;
 
 public class ResourceGenerator : Actor
 {
+    [Header("Animation Settings")]
+    public float popingScale = 0.95f;
+    public float popingSpeed = 3f;
+    [SerializeField] private bool poping = false;
+
     protected FurnitureData furnitureData;
 
 
@@ -15,6 +20,7 @@ public class ResourceGenerator : Actor
     protected GridManager gridManager;
 
     private float timer = 0;
+
 
     private void OnDestroy()
     {
@@ -74,6 +80,9 @@ public class ResourceGenerator : Actor
                     if(conveyor.Enter(money))
                     {
                         money = null;
+
+                        if(!poping)
+                            StartCoroutine(Pop());
                     }
                 }
             }
@@ -91,5 +100,37 @@ public class ResourceGenerator : Actor
             }
         }
         return null;
+    }
+
+    // 재화 생성시 POP 연출
+    private IEnumerator Pop()
+    {
+        poping = true;
+
+        Vector3 originalScale = transform.localScale;
+        Vector3 targetScale = originalScale * popingScale;
+
+        float t = 0;
+
+        while(t < 1)
+        {
+            t += Time.deltaTime * popingSpeed;
+            transform.localScale = Vector3.Lerp(originalScale, targetScale, t);
+            yield return null;
+        }
+
+        t = 1;
+        transform.localScale = targetScale;
+
+        while (t > 0)
+        {
+            t -= Time.deltaTime * popingSpeed;
+            transform.localScale = Vector3.Lerp(originalScale, targetScale, t);
+            yield return null;
+        }
+
+        transform.localScale = originalScale;
+
+        poping = false;
     }
 }

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class MoneyExchanger : Conveyor
 {
@@ -23,6 +22,9 @@ public class MoneyExchanger : Conveyor
 
     private void OnDestroy()
     {
+        if (target != null)
+            ObjectPool.Instance.Despawn("Money", target);
+
         if (money != null)
             ObjectPool.Instance.Despawn("MoneyBundle", money);
     }

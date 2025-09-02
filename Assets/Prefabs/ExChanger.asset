@@ -16,7 +16,7 @@ MonoBehaviour:
   itemName: "\uB3C8 \uAD50\uD658\uAE30"
   furniturePrefab: {fileID: 7902703570916429896, guid: fb723fda7e2cdcf4caf04a05a26e853a,
     type: 3}
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 6d226cf06939e8d439dfb1e82ed18f6b, type: 3}
   probability: 2
   canProduceResource: 0
   goldAmount: 1
