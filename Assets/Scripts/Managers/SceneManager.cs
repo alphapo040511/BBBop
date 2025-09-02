@@ -16,8 +16,8 @@ public class SceneManager : SingletonMonoBehaviour<SceneManager>
     public bool useFadeEffect = true;
 
     [Header("Fade Settings")]
-    public float fadeSpeed = 1f;
-    public Color fadeColor = Color.black;
+    public float fadeSpeed = 2f;
+    public Color fadeColor = Color.white;
 
     private string currentSceneName;
     private string targetSceneName;

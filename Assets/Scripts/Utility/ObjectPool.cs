@@ -11,7 +11,7 @@ public class PoolData
     public string id;
     public GameObject Prefab;
     public int InitialCount = 10;       // 초기 생성 개수
-
+    public Transform parent;
 }
 
 public class ObjectPool : SingletonMonoBehaviour<ObjectPool>
@@ -40,10 +40,21 @@ public class ObjectPool : SingletonMonoBehaviour<ObjectPool>
     {
         foreach (var data in poolDatas)
         {
+            Transform parent;
+            if (data.parent == null)
+            {
+                parent = Instantiate(new GameObject($"{data.id}_Pool"), transform).transform;
+            }
+            else
+            {
+                parent = data.parent;
+            }
+
+
             var queue = new Queue<GameObject>();
             for (int i = 0; i < data.InitialCount; i++)
             {
-                var go = Instantiate(data.Prefab, transform);
+                var go = Instantiate(data.Prefab, parent);
                 go.SetActive(false);
                 queue.Enqueue(go);
             }

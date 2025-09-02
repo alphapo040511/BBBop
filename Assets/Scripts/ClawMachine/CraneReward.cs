@@ -6,7 +6,6 @@ using static FurnitureData;
 
 public class CraneReward : MonoBehaviour
 {
-    [SerializeField] FurnitureData[] reward;
     public Collider objectCheckCollider;
 
     [Header("등급별 확률")]
@@ -21,7 +20,7 @@ public class CraneReward : MonoBehaviour
         if (other.gameObject.CompareTag("Grabbable"))
         {
             var reward = GetRandomFurniture();
-            FurnitureManager.Instance.GetFurniture(reward.id);
+            FurnitureManager.Instance.GetFurniture(reward.id, reward.id == "Conveyor" ? 8 : 1);
             SaveManager.Instance.SaveData();
             Debug.Log($"{reward.id} 획득!");
         }
@@ -52,7 +51,10 @@ public class CraneReward : MonoBehaviour
 
         //선택된 등급의 가구 목록
         List<FurnitureData> table = new List<FurnitureData>();
-        for (int i = 0; i < reward.Length; i++)
+
+        List<FurnitureData> reward = FurnitureManager.Instance.furnitureDatas;
+
+        for (int i = 0; i < reward.Count; i++)
         {
             if (reward[i].probability == selectedProbability)
             {
@@ -63,7 +65,7 @@ public class CraneReward : MonoBehaviour
         //선택된 목록에 해당 등급의 가구가 없을 때 일반으로 대체
         if (table.Count == 0)
         {
-            for (int i = 0; i < reward.Length; i++)
+            for (int i = 0; i < reward.Count; i++)
             {
                 if (reward[i].probability == Probability.Common)
                 {

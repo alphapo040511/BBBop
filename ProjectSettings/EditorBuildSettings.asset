@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: d1a9253271e38af469d4fb52647c7f0e
+  - enabled: 1
+    path: Assets/Scenes/CraneScene.unity
+    guid: 332162bb6a45a764b8a00a9f375c4071
   m_configObjects: {}

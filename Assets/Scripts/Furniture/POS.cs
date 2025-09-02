@@ -36,9 +36,15 @@ public class POS : Conveyor
         //moneyList.Add(money);
 
         int amout = money.GetComponent<Money>().money;
-        Debug.Log($"{amout}G È¹µæ");
+
+        GameObject ui = ObjectPool.Instance.Spawn("GoldUI", Vector3.zero, Quaternion.identity);
+
+        ui.GetComponent<GoldUI>().Show(amout, transform);
+
         ObjectPool.Instance.Despawn(money.name, money);
         moneyList.Remove(money); ;
+
+        ResourceManager.Instance.GetGold(amout);
 
         return true;
     }
