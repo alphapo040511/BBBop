@@ -57,7 +57,7 @@ public class MoneyExchanger : Conveyor
         }
 
         currentTime += Time.deltaTime;
-        if (currentTime >= exchangeIntervalTime)
+        if (currentTime >= exchangeIntervalTime && sumMoney > 0)
         {
             currentTime = 0f;
             Exchange(sumMoney);
