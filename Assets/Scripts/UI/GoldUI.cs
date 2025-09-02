@@ -23,6 +23,14 @@ public class GoldUI : MonoBehaviour
         uiElement = GetComponent<RectTransform>();
     }
 
+    private void OnEnable()
+    {
+        // UI 색상 변경
+        Color color = tmp.color;
+        color.a = 1f;
+        tmp.color = color;
+    }
+
     public void Show(int gold, Transform target)
     {
         if(tmp != null)

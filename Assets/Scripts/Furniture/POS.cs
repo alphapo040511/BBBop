@@ -5,46 +5,47 @@ using UnityEngine;
 
 public class POS : Conveyor
 {
-    private List<GameObject> moneyList = new List<GameObject>();
+    private Queue<Money> moneyQueue = new Queue<Money>();
 
-    //protected override void Move()
-    //{
-    //    foreach(var target in moneyList)
-    //    {
-    //        // 목표 위치 (컨베이어 위치 + y 오프셋)
-    //        Vector3 targetPos = transform.position + Vector3.up * 0.5f;
+    private float interval = 0.3f;
+    private float timer;
 
-    //        target.transform.position = Vector3.MoveTowards(
-    //            target.transform.position,
-    //            targetPos,
-    //            Time.deltaTime
-    //        );
-
-    //        // 다 왔으면 판매
-    //        if (Vector3.Distance(target.transform.position, targetPos) < 0.01f)
-    //        {
-    //            int money = target.GetComponent<Money>().money;
-    //            Debug.Log($"{money}G 획득");
-    //            ObjectPool.Instance.Despawn("Money", target);
-    //            moneyList.Remove(target);
-    //        }
-    //    }
-    //}
-
-    public override bool Enter(GameObject money)
+    protected override void Update()
     {
-        //moneyList.Add(money);
+        base.Update();
 
-        int amout = money.GetComponent<Money>().money;
+        if (moneyQueue.Count > 0)
+        {
+            timer += Time.deltaTime;
+
+            if (timer >= interval)
+            {
+                timer = 0;
+                ShowUI();
+            }
+        }
+    }
+
+    private void ShowUI()
+    {
+        if (moneyQueue.Count <= 0) return;
+
+        Money gold = moneyQueue.Dequeue();
 
         GameObject ui = ObjectPool.Instance.Spawn("GoldUI", Vector3.zero, Quaternion.identity);
 
-        ui.GetComponent<GoldUI>().Show(amout, transform);
+        ui.GetComponent<GoldUI>().Show(gold.money, transform);
 
-        ObjectPool.Instance.Despawn(money.name, money);
-        moneyList.Remove(money); ;
+        ObjectPool.Instance.Despawn(gold.name, gold.gameObject);
 
-        ResourceManager.Instance.GetGold(amout);
+        ResourceManager.Instance.GetGold(gold.money);
+    }
+
+    public override bool Enter(GameObject money)
+    {
+        Money gold = money.GetComponent<Money>();
+
+        moneyQueue.Enqueue(gold);
 
         return true;
     }
