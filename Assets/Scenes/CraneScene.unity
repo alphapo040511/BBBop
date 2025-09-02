@@ -2337,7 +2337,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   capsulePrefab:
-  - {fileID: 7269453836478991723, guid: 71ad9330e720c2c47b2ebc2c10a427b3, type: 3}
+  - {fileID: 5141698710847963878, guid: c5a5f79c9a135894faae19e813416ead, type: 3}
+  - {fileID: 5141698710847963878, guid: 11819556787c2a149870a0dfba218371, type: 3}
+  - {fileID: 5141698710847963878, guid: c0e2aa18a599a80459ed24bbbbdde708, type: 3}
+  - {fileID: 5141698710847963878, guid: 56eb476c06e0a4945aa085d765794e0c, type: 3}
+  - {fileID: 5141698710847963878, guid: 1cb7d42f9f11c364992898ef16d8d0ee, type: 3}
+  - {fileID: 5141698710847963878, guid: 72e68ee2d0b717c44ae2c1d7d8f42895, type: 3}
+  - {fileID: 5141698710847963878, guid: 3c3fe75b419877b439768335169cb683, type: 3}
   generateArea: {fileID: 1131410573}
   areaSize: {x: 5, y: 1, z: 2}
 --- !u!1 &1678357307
