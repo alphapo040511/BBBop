@@ -32,7 +32,7 @@ public class Actor : MonoBehaviour
         if (GameManager.Instance == null) return true;
 
         GameState state = GameManager.Instance.currentGameState;
-        return state == GameState.Playing;                              // 게임 상태가 Playing일 경우만 동작 가능
+        return state != GameState.EditMode;                              // 게임 상태가 Edit 모드가 아니라면 작동
     }
 
     protected virtual void ActorUpdate() { }

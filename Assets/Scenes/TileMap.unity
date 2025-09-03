@@ -22642,7 +22642,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   furnitureDatas:
   - {fileID: 11400000, guid: 11871df03ba57354d8310a34e52b210a, type: 2}
-  - {fileID: 11400000, guid: 484c2f7169faae947b02b1d5c3ab2cee, type: 2}
   - {fileID: 11400000, guid: ae252a4185f86b44394a1ccae18e3d61, type: 2}
   - {fileID: 11400000, guid: 5648c989c82acb54fb44d163e6c49307, type: 2}
   - {fileID: 11400000, guid: d74229c84da8f7e4d973beeacd1a6669, type: 2}

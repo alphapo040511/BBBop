@@ -96,7 +96,7 @@ public class ResourceGenerator : Actor
 
     private void DecreaseTime(float amount)
     {
-        timer *= (1f - amount);
+        timer -= furnitureData.intervalTime * amount;
     }
 
     private Conveyor GetNextConveyor()
