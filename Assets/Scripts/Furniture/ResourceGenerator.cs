@@ -71,7 +71,7 @@ public class ResourceGenerator : Actor
                 float rotation = Random.Range(0f, 360f);
 
                 money = ObjectPool.Instance.Spawn("Money"
-                    ,new Vector3(GenPosition.x + 0.5f, 0.5f, GenPosition.y + 0.5f)
+                    ,new Vector3(GenPosition.x + 0.5f, 0.5f, GenPosition.y + 0.8f)
                     , Quaternion.Euler(0, rotation, 0));
 
                 money.GetComponent<Money>().money = furnitureData.goldAmount;

@@ -22649,6 +22649,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 07cd0f602e4133b478de78f4e6c8d46b, type: 2}
   - {fileID: 11400000, guid: 5b8f451c25510424ca88867797ae9093, type: 2}
   - {fileID: 11400000, guid: 8a19f8d622c0acd419fef50b6fc1f36f, type: 2}
+  - {fileID: 11400000, guid: 501f8cd18a290d04eb6845c99b7f15a9, type: 2}
+  - {fileID: 11400000, guid: af96c0f618c4c924fbaa600e571214b1, type: 2}
+  - {fileID: 11400000, guid: dccb0b50e383ad242ab5d45fd9a155f7, type: 2}
+  - {fileID: 11400000, guid: c46bf300083922d448d067b4577d7da6, type: 2}
 --- !u!4 &691795000
 Transform:
   m_ObjectHideFlags: 0
@@ -33594,7 +33598,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.3005963, g: 0.31333748, b: 0.3301887, a: 1}
+  m_BackGroundColor: {r: 0.12156863, g: 0.14509805, b: 0.15294118, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

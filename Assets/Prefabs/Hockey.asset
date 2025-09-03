@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b2614a3e488a51b4685fa93f1f72176e, type: 3}
-  m_Name: Claw_Pink
+  m_Name: Hockey
   m_EditorClassIdentifier: 
-  id: Claw_Default
-  itemName: "\uC778\uD615 \uBF51\uAE30"
-  furniturePrefab: {fileID: 6847135087820912179, guid: fac0cf25ac5adde4da78a2b15f2e58a5,
+  id: Hockey
+  itemName: "\uC5D0\uC5B4 \uD558\uD0A4"
+  furniturePrefab: {fileID: 1218846592049508932, guid: 0ab47f30c16ec8f45a0b87ccf7fc4bbc,
     type: 3}
-  icon: {fileID: 21300000, guid: 684ff2fdd5c89da45bae016b63404832, type: 3}
-  probability: 1
+  icon: {fileID: 21300000, guid: 132f74aae62fab64ca301b09005fb0b0, type: 3}
+  probability: 2
   canProduceResource: 1
-  goldAmount: 380
-  intervalTime: 8
+  goldAmount: 4000
+  intervalTime: 5

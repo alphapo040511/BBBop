@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b2614a3e488a51b4685fa93f1f72176e, type: 3}
-  m_Name: Claw_Pink
+  m_Name: Dart_White
   m_EditorClassIdentifier: 
-  id: Claw_Default
-  itemName: "\uC778\uD615 \uBF51\uAE30"
-  furniturePrefab: {fileID: 6847135087820912179, guid: fac0cf25ac5adde4da78a2b15f2e58a5,
+  id: Dart_White
+  itemName: "\uB2E4\uD2B8\uBA38\uC2E0"
+  furniturePrefab: {fileID: 4443681098514145427, guid: d26bbc9ddae7ba642a33123f58ebe9e6,
     type: 3}
-  icon: {fileID: 21300000, guid: 684ff2fdd5c89da45bae016b63404832, type: 3}
+  icon: {fileID: 21300000, guid: ec64fb35c506420498f57e3c340d10cd, type: 3}
   probability: 1
   canProduceResource: 1
-  goldAmount: 380
+  goldAmount: 200
   intervalTime: 8
