@@ -1,4 +1,4 @@
-using System.Collections;
+ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
@@ -20,7 +20,7 @@ public class CraneController : MonoBehaviour
     public float radiusFromCenter = 0.8f;
 
     [Header("초기 위치 설정")]
-    public Vector3 initalPosition = new Vector3(0, 5, 0);       //크레인 시작 위치
+    public Vector3 initalPosition = new Vector3(-4.3f, 5f, 4.3f);       //크레인 시작 위치
 
     [Header("3D 이동 설정")]
     public float moveSpeed = 4f;            //수평 이동 속도
@@ -47,6 +47,8 @@ public class CraneController : MonoBehaviour
     public KeyCode moveRightKey = KeyCode.D;            //오른쪽 (x+)
     public KeyCode openClawKey = KeyCode.X;             //집게 벌리기
 
+    [Header("골드 소모")]
+    public int useGold = 1000;
     //내부 상태 변수들
     private Transform[] clawPivots = new Transform[3];
     private Transform[] lowerPivots = new Transform[3];
@@ -73,6 +75,8 @@ public class CraneController : MonoBehaviour
 
     private void Start()
     {
+
+
         if (originalClawPivot == null)
         {
             Debug.LogError("원본 ClawPivot을 설정해주세요!");
@@ -97,6 +101,7 @@ public class CraneController : MonoBehaviour
     private void Update()
     {
         HandleInput();
+        HandleInputSpace();
         UpdateAutoGrab();
         UpdateMovement();
     }
@@ -164,14 +169,30 @@ public class CraneController : MonoBehaviour
         }
     }
 
-    void HandleInput()
+    private ResourceManager HandleInputSpace()
     {
-        //자동 집기 시작 (Space키)
-        if (Input.GetKeyDown(grabKey) && currentState == GrabState.Idle)
-        {
+       if (Input.GetKeyDown(grabKey) && currentState == GrabState.Idle && ResourceManager.Instance.gold >= useGold)
+       {
+            ResourceManager.Instance.UseGold(useGold);
             Debug.Log("Space 키 눌림! 자동 집기 시작 시도");
             StartAutoGrab();
+            SaveManager.Instance.SaveData();
+       }
+        return null;
+    }
+
+    void HandleInput()
+    {
+        /*
+        //자동 집기 시작 (Space키)
+        if (Input.GetKeyDown(grabKey) && currentState == GrabState.Idle && resourceManager.gold >= useGold)
+        {
+            resourceManager.UseGold(useGold);
+            Debug.Log("Space 키 눌림! 자동 집기 시작 시도");
+            StartAutoGrab();
+            SaveManager.Instance.SaveData();
         }
+        */
 
         //수동 집게 열기 (x키)
         if (Input.GetKeyDown(openClawKey))
@@ -368,6 +389,7 @@ public class CraneController : MonoBehaviour
 
     void OpenClaw()
     {
+        cranePosition = initalPosition;
         clawProgress = 0f;
         SetClawProgress(clawProgress);
         currentState = GrabState.Idle;
