@@ -37,21 +37,29 @@ public class SaveManager : SingletonMonoBehaviour<SaveManager>
 
     public void SaveData()
     {
-        _saveData = new SaveData();
+        SaveData saveData = new SaveData();
 
-        _saveData.gold = ResourceManager.Instance.gold.ToString(); // 보유중인 G 저장
+        saveData.gold = ResourceManager.Instance.gold.ToString(); // 보유중인 G 저장
 
         foreach (var owned in FurnitureManager.Instance.OwnedFurnitures.Values)
         {
-            _saveData.ownedFurnitures.Add(owned);        // 보유중인 가구 저장
+            saveData.ownedFurnitures.Add(owned);        // 보유중인 가구 저장
         }
 
-        foreach (var placed in FurnitureManager.Instance.PlacedFurnitures.Values)
+        if (SceneManager.Instance.GetCurrentSceneName() == "TileMap")
         {
-            _saveData.placedFurnituresData.Add(placed);  // 설치중인 가구 저장
+            foreach (var placed in FurnitureManager.Instance.PlacedFurnitures.Values)
+            {
+                saveData.placedFurnituresData.Add(placed);  // 설치중인 가구 저장
+            }
+        }
+        else
+        {
+            saveData.placedFurnituresData = _saveData.placedFurnituresData;
         }
 
-        string json = JsonUtility.ToJson(_saveData, true);
+
+        string json = JsonUtility.ToJson(saveData, true);
         File.WriteAllText(savePath, json);
         Debug.Log($"저장 완료: {savePath}");
     }

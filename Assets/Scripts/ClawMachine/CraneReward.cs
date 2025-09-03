@@ -8,6 +8,12 @@ public class CraneReward : MonoBehaviour
 {
     public Collider objectCheckCollider;
 
+    // æ∆¿Ã≈€ »πµÊ UI º≥¡§
+    public GetItemUI uiPrefab;
+    public GameObject scrollView;
+    public Transform content;
+
+
     [Header("µÓ±ﬁ∫∞ »Æ∑¸")]
     [Range(0, 100)] public int commonRate = 69;
     [Range(0, 100)] public int rareRate = 20;
@@ -23,6 +29,12 @@ public class CraneReward : MonoBehaviour
             FurnitureManager.Instance.GetFurniture(reward.id, reward.id == "Conveyor" ? 8 : 1);
             SaveManager.Instance.SaveData();
             Debug.Log($"{reward.id} »πµÊ!");
+
+            scrollView.SetActive(true);
+
+            GetItemUI ui = Instantiate(uiPrefab, content);
+
+            ui.InitializeUI(reward, reward.id == "Conveyor" ? 8 : 1);
         }
     }
 

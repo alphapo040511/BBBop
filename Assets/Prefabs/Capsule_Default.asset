@@ -19,5 +19,5 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 21e34b0e9571ed94693bc8345098001f, type: 3}
   probability: 0
   canProduceResource: 1
-  goldAmount: 10
+  goldAmount: 100
   intervalTime: 10

@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Arcade_Red
   m_EditorClassIdentifier: 
   id: Arcade_Red
-  itemName: "\uC544\uCF00\uC774\uB4DC(Red)"
+  itemName: "\uC544\uCF00\uC774\uB4DC \uAC8C\uC784\uAE30"
   furniturePrefab: {fileID: 3668773379922763195, guid: 44aa297214b3b2a44a7954a93e9df9cd,
     type: 3}
   icon: {fileID: 21300000, guid: 19f31ac3926175b468041c91c78d6250, type: 3}
   probability: 1
   canProduceResource: 1
-  goldAmount: 20
+  goldAmount: 200
   intervalTime: 8

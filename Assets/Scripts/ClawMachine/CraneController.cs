@@ -248,7 +248,7 @@ public class CraneController : MonoBehaviour
     bool CheckForObstacle()
     {
         //집게 바로 아래쪽에 물체가 가까이 있는지 감지 (더 엄격하게)
-        Vector3 checkPosition = detectionPoint.position + Vector3.down * 0.5f;      //0.5만큼 아래에서 체크
+        Vector3 checkPosition = detectionPoint.position; // + Vector3.down * 0.5f;      //0.5만큼 아래에서 체크
         Collider[] nearbyObjects = Physics.OverlapSphere(checkPosition, detectionRadius, grabbableLayer);
 
         if (nearbyObjects.Length > 0)
