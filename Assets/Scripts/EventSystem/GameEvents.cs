@@ -33,4 +33,9 @@ public static class GameEvents
     public static void ResolutionChanged(int resolutionIndex) => OnResolutionChanged?.Invoke(resolutionIndex);
     public static void FullscreenChanged(bool isFullscreen) => OnFullscreenChanged?.Invoke(isFullscreen);
     public static void QualityChanged(int qualityLevel) => OnQualityChanged?.Invoke(qualityLevel);
+
+    // 게임에서 사용하는 이벤트
+    public static System.Action<float> OnClickEvent;             // 클릭 이벤트 (시간 감소용)
+
+    public static void ClickEvent(float amount) => OnClickEvent?.Invoke(amount);
 }

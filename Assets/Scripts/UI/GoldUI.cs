@@ -61,8 +61,6 @@ public class GoldUI : MonoBehaviour
         if (movedDistance >= targetDistance)
         {
             // 비활성화
-            color.a = 0f;
-            tmp.color = color;
             ObjectPool.Instance.Despawn("GoldUI", gameObject);
             return;
         }
@@ -75,7 +73,7 @@ public class GoldUI : MonoBehaviour
         uiElement.anchoredPosition = position + Vector2.up * movedDistance;
 
         // UI 색상 변경
-        color.a = movedDistance / targetDistance;
+        color.a = 1 - (movedDistance / targetDistance);
         tmp.color = color;
     }
 }

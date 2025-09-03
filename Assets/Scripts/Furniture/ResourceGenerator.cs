@@ -26,10 +26,14 @@ public class ResourceGenerator : Actor
     {
         if(money != null)
         ObjectPool.Instance.Despawn("Money", money);
+
+        GameEvents.OnClickEvent -= DecreaseTime;
     }
 
     private void Start()
     {
+        GameEvents.OnClickEvent += DecreaseTime;
+
         furniture = GetComponent<PlacedFurniture>();
         gridManager = FindObjectOfType<GridManager>();
         GenPosition = furniture.Start;
@@ -51,14 +55,15 @@ public class ResourceGenerator : Actor
     public void Initialized(FurnitureData buildingData)
     {
         this.furnitureData = buildingData;
+        timer = furnitureData.intervalTime;
     }
 
     protected override void ActorUpdate()
     {
-        timer += Time.deltaTime;
-        if(timer >= furnitureData.intervalTime)
+        timer -= Time.deltaTime;
+        if(timer <= 0)
         {
-            timer = 0;              // 생성이 안되더라도 초기화
+            timer = furnitureData.intervalTime;              // 생성이 안되더라도 초기화
 
 
             if (money == null)
@@ -87,6 +92,11 @@ public class ResourceGenerator : Actor
                 }
             }
         }
+    }
+
+    private void DecreaseTime(float amount)
+    {
+        timer *= (1f - amount);
     }
 
     private Conveyor GetNextConveyor()
