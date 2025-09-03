@@ -73,12 +73,13 @@ public class SaveManager : SingletonMonoBehaviour<SaveManager>
                  new PlacedFurnitureData("Conveyor", new Vector2Int(1, 2), 0),
                 new PlacedFurnitureData("Capsule_Default", new Vector2Int(1, 3), 180)
                 };
-
-            return;
+        }
+        else
+        {
+            string json = File.ReadAllText(savePath);
+            _saveData = JsonUtility.FromJson<SaveData>(json);
         }
 
-        string json = File.ReadAllText(savePath);
-        _saveData = JsonUtility.FromJson<SaveData>(json);
         Debug.Log("로드 완료");
 
         FurnitureManager.Instance.LoadOwnedData(_saveData.ownedFurnitures);
