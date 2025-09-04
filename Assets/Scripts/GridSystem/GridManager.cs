@@ -271,6 +271,7 @@ public class GridManager : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR
     // 격자 시각화 (Scene 뷰에서) - 오브젝트 중심에 맞춤
     void OnDrawGizmos()
     {
@@ -323,5 +324,6 @@ public class GridManager : MonoBehaviour
             }
         }
     }
-    #endregion
+#endif
+#endregion
 }

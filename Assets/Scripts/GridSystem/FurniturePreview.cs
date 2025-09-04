@@ -226,6 +226,6 @@ public class FurniturePreview : MonoBehaviour
             DestroyImmediate(currentPreview);
         }
 
-        simplePlacer.OnChangeFurniture += ChangePreview;
+        simplePlacer.OnChangeFurniture -= ChangePreview;
     }
 }

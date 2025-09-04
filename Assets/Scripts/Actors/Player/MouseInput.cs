@@ -14,6 +14,11 @@ public class MouseInput : Actor
     {
         if(Input.GetMouseButtonDown(0))
         {
+            if (UnityEngine.EventSystems.EventSystem.current != null                                    // UI 위에서 클릭시 무시
+    && UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())      
+                return; 
+
+
             float amount = UnityEngine.Random.value < critRate? critDecrease : defaultDecrease;
 
             GameEvents.ClickEvent(amount);

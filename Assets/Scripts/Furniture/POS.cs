@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class POS : Conveyor
 {
+    public AudioSource source;
+
     private Queue<Money> moneyQueue = new Queue<Money>();
 
     private float interval = 0.3f;
@@ -39,6 +41,8 @@ public class POS : Conveyor
         ObjectPool.Instance.Despawn(gold.name, gold.gameObject);
 
         ResourceManager.Instance.GetGold(gold.money);
+
+        source.Play();                                                       // 매서드 나중에 정리
     }
 
     public override bool Enter(GameObject money)

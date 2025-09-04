@@ -49,6 +49,9 @@ public class CraneController : MonoBehaviour
 
     [Header("골드 소모")]
     public int useGold = 1000;
+
+    public AudioSource audioSource;
+
     //내부 상태 변수들
     private Transform[] clawPivots = new Transform[3];
     private Transform[] lowerPivots = new Transform[3];
@@ -72,6 +75,8 @@ public class CraneController : MonoBehaviour
     private float grabTimer = 0f;
     private float originalHeight = 0f;
     private GameObject grabbedObject = null;            //현재 잡은 오브젝트
+
+    private float volume = 0f;
 
     private void Start()
     {
@@ -235,6 +240,10 @@ public class CraneController : MonoBehaviour
             movement.x += moveSpeed * Time.deltaTime;
         }
 
+        volume = Mathf.Lerp(volume, movement.magnitude * 0.1f, Time.deltaTime * 10);
+
+        audioSource.volume = volume;
+
         //위치 업데이트 및 범위 제한 (Y축은 고정 - initialPosition.y 유지)
         cranePosition += movement;
         cranePosition.x = Mathf.Clamp(cranePosition.x, -maxMoveRange, maxMoveRange);
@@ -289,6 +298,8 @@ public class CraneController : MonoBehaviour
 
     void UpdateAutoGrab()
     {
+        audioSource.volume = 0.01f;
+
         switch (currentState)
         {
             case GrabState.Descending:

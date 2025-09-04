@@ -44,7 +44,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             gameTime += Time.deltaTime;
         }
 
-        //HandleInput();
+        HandleInput();
     }
 
     private void InitializeGame()
@@ -81,10 +81,12 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         {
             if (currentGameState == GameState.Playing)
             {
+                SettingsUI.Instance.ShowSettings();
                 PauseGame();
             }
             else if (currentGameState == GameState.Paused)
             {
+                SettingsUI.Instance.OnCloseClicked();
                 ResumeGame();
             }
         }

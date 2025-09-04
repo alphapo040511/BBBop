@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class SettingsUI : MonoBehaviour
+public class SettingsUI : SingletonMonoBehaviour<SettingsUI>
 {
     [Header("Display Settings")]
     public TMP_Dropdown resolutionDropdown;
@@ -36,6 +36,7 @@ public class SettingsUI : MonoBehaviour
         InitializeUI();
         SetupEventListeners();
         RefreshUI();
+        OnCloseClicked();
     }
 
     private void InitializeUI()
@@ -150,21 +151,21 @@ public class SettingsUI : MonoBehaviour
         {
             masterVolumeSlider.value = tempSettings.masterVolume;
             if (masterVolumeText != null)
-                masterVolumeText.text = $"{tempSettings.masterVolume * 100:F0}%";
+                masterVolumeText.text = $"볼륨 {tempSettings.masterVolume * 100:F0}%";
         }
 
         if (sfxVolumeSlider != null)
         {
             sfxVolumeSlider.value = tempSettings.sfxVolume;
             if (sfxVolumeText != null)
-                sfxVolumeText.text = $"{tempSettings.sfxVolume * 100:F0}%";
+                sfxVolumeText.text = $"효과음 {tempSettings.sfxVolume * 100:F0}%";
         }
 
         if (musicVolumeSlider != null)
         {
             musicVolumeSlider.value = tempSettings.musicVolume;
             if (musicVolumeText != null)
-                musicVolumeText.text = $"{tempSettings.musicVolume * 100:F0}%";
+                musicVolumeText.text = $"배경음{tempSettings.musicVolume * 100:F0}%";
         }
 
         // 그래픽 설정 UI 업데이트
@@ -212,7 +213,7 @@ public class SettingsUI : MonoBehaviour
 
         tempSettings.masterVolume = value;
         if (masterVolumeText != null)
-            masterVolumeText.text = $"{value * 100:F0}%";
+            masterVolumeText.text = $"볼륨 {value * 100:F0}%";
 
         // 실시간 볼륨 적용
         SettingsManager.Instance.SetMasterVolume(value);
@@ -224,7 +225,7 @@ public class SettingsUI : MonoBehaviour
 
         tempSettings.sfxVolume = value;
         if (sfxVolumeText != null)
-            sfxVolumeText.text = $"{value * 100:F0}%";
+            sfxVolumeText.text = $"효과음 {value * 100:F0}%";
 
         // 실시간 볼륨 적용
         SettingsManager.Instance.SetSFXVolume(value);
@@ -236,7 +237,7 @@ public class SettingsUI : MonoBehaviour
 
         tempSettings.musicVolume = value;
         if (musicVolumeText != null)
-            musicVolumeText.text = $"{value * 100:F0}%";
+            musicVolumeText.text = $"배경음 {value * 100:F0}%";
 
         // 실시간 볼륨 적용
         SettingsManager.Instance.SetMusicVolume(value);
@@ -272,10 +273,16 @@ public class SettingsUI : MonoBehaviour
         Debug.Log("설정이 초기화되었습니다");
     }
 
-    private void OnCloseClicked()
+    public void OnCloseClicked()
     {
         // 설정 창 닫기
         gameObject.SetActive(false);
+    }
+
+    public void ExitGame()
+    {
+        SaveManager.Instance.SaveData();
+        Application.Quit(); 
     }
 
     #endregion
@@ -290,10 +297,10 @@ public class SettingsUI : MonoBehaviour
     // ESC 키로 설정 창 닫기
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && gameObject.activeInHierarchy)
-        {
-            OnCloseClicked();
-        }
+        //if (Input.GetKeyDown(KeyCode.Escape) && gameObject.activeInHierarchy)
+        //{
+        //    OnCloseClicked();
+        //}
     }
 }
 

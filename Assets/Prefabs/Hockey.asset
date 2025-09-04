@@ -17,7 +17,7 @@ MonoBehaviour:
   furniturePrefab: {fileID: 1218846592049508932, guid: 0ab47f30c16ec8f45a0b87ccf7fc4bbc,
     type: 3}
   icon: {fileID: 21300000, guid: 132f74aae62fab64ca301b09005fb0b0, type: 3}
-  probability: 2
+  probability: 3
   canProduceResource: 1
   goldAmount: 4000
   intervalTime: 5
