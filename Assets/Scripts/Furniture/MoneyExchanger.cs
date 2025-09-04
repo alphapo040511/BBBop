@@ -13,7 +13,6 @@ public class MoneyExchanger : Conveyor
     private Vector2Int GenPosition;
     private Vector2Int OutPosition;
 
-
     private List<GameObject> targetList = new List<GameObject>();
 
     private int sumMoney;
@@ -22,8 +21,10 @@ public class MoneyExchanger : Conveyor
 
     private void OnDestroy()
     {
-        if (target != null)
-            ObjectPool.Instance.Despawn("Money", target);
+        foreach (GameObject obj in targetList)
+        {
+            ObjectPool.Instance.Despawn(obj.name, obj);
+        }
 
         if (money != null)
             ObjectPool.Instance.Despawn("MoneyBundle", money);

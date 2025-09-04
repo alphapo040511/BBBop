@@ -14,7 +14,7 @@ public class Conveyor : Actor
     private void OnDestroy()
     {
         if (target != null)
-        ObjectPool.Instance.Despawn("Money", target);
+        ObjectPool.Instance.Despawn(target.name, target);
     }
 
     // Start is called before the first frame update
